@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@100;300;400;500;700;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@100;300;400;500;700;900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -6,6 +6,9 @@
 
 @layer components {
   .r-width {
-    @apply w-[90%] mx-auto;
+    @apply mx-auto w-[90%];
+  }
+  .display-font {
+    @apply bg-gradient-to-r from-c-pink-500 to-c-pink-400 bg-clip-text  text-transparent;
   }
 }

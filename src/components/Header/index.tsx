@@ -7,7 +7,7 @@ type Props = {};
 const Header = (props: Props) => {
   return (
     <header className="r-width flex  h-14 items-center justify-between">
-      <span className="font-display text-2xl uppercase">Suzaana</span>
+      <span className="display-font font-display text-2xl">Sazaana</span>
       <div className="flex items-center">
         <span className="text-sm">Connect Spotify</span>
         <span className="relative ml-1 h-5 w-5">

@@ -1,6 +1,6 @@
 import { render, screen, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
-import Home from "../pages/index";
+import Home from "@/pages/index";
 
 beforeEach(() => {
   render(<Home />);

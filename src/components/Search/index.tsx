@@ -27,7 +27,7 @@ const Search = (props: Props) => {
           checked={enabled}
           onChange={setEnabled}
           className={`${
-            enabled ? "bg-c-pink-300" : "bg-gray-200"
+            enabled ? "bg-c-pink-300" : "bg-c-pink-400"
           } relative mx-1 inline-flex h-6 w-11 items-center rounded-full transition-all duration-200 ease-in-out`}
         >
           <span

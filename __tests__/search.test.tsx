@@ -25,4 +25,8 @@ describe("Search", () => {
     fireEvent.change(input, { target: { value } });
     expect(input.value).toBe(value);
   });
+  test("", () => {
+    const searchSwitch = screen.getByTestId("search-switch");
+    expect(searchSwitch).toBeInTheDocument();
+  });
 });

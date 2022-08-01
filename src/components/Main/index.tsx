@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 
 type Props = {
   children: React.ReactNode;
 };
 
 const Main = (props: Props) => {
-  return <main>{props.children}</main>;
+  return <main className="min-h-[calc(100vh-3.5rem)]">{props.children}</main>;
 };
 
 export default Main;

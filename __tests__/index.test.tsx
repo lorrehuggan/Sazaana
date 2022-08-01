@@ -1,15 +1,26 @@
-import { render, screen, cleanup } from '@testing-library/react';
-import Home from '../src/components/Header';
-import Search from '../src/components/Search';
-import Main from '../src/components/Main';
+import { render, screen, cleanup } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import Home from "../pages/index";
+
+beforeEach(() => {
+  render(<Home />);
+});
 
 afterAll(cleanup);
 
-describe('Home', () => {
-  test('home page should render the header', () => {
-    render(<Home />);
-    const heading = screen.getByText(/connect spotify/i);
-    expect(heading).toBeDefined();
+describe("Home", () => {
+  test("it should render a header", () => {
+    const heading = screen.getByRole("banner");
+    expect(heading).toBeInTheDocument();
   });
-  test('home page should render main component', () => {});
+
+  test("it should render a main section", () => {
+    const main = screen.getByRole("main");
+    expect(main).toBeInTheDocument();
+  });
+
+  test("it should render a footer", () => {
+    const footer = screen.getByRole("contentinfo");
+    expect(footer).toBeInTheDocument();
+  });
 });

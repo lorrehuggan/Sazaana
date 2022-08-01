@@ -1,20 +1,20 @@
-import React from 'react';
-import Image from 'next/image';
-import SpotifyLogo from '@/public/assets/spotify-icon.svg';
+import React from "react";
+import Image from "next/image";
+import SpotifyLogo from "@/public/assets/spotify-icon.svg";
 
 type Props = {};
 
 const Header = (props: Props) => {
   return (
-    <div className="r-width py-4 flex justify-between items-center">
-      <span className="uppercase font-display text-2xl">Suzaana</span>
+    <header className="r-width flex  h-14 items-center justify-between">
+      <span className="font-display text-2xl uppercase">Suzaana</span>
       <div className="flex items-center">
         <span className="text-sm">Connect Spotify</span>
-        <span className="w-5 h-5 relative ml-1">
+        <span className="relative ml-1 h-5 w-5">
           <Image src={SpotifyLogo} layout="fill" />
         </span>
       </div>
-    </div>
+    </header>
   );
 };
 

@@ -6,22 +6,18 @@ import { store } from "../src/lib/Redux/store";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { renderWithClient } from "@/lib/utils/msw";
 
-beforeEach(() => {
-  const queryClient = new QueryClient();
-  render(
-    <Provider store={store}>
-      <QueryClientProvider client={queryClient}>
-        <Search />
-      </QueryClientProvider>
-    </Provider>
-  );
-});
-
-afterEach(() => {
-  cleanup();
-});
-
 describe("Search", () => {
+  const queryClient = new QueryClient();
+  beforeEach(() => {
+    render(
+      <Provider store={store}>
+        <QueryClientProvider client={queryClient}>
+          <Search />
+        </QueryClientProvider>
+      </Provider>
+    );
+  });
+
   test("it should render a search input", () => {
     const input = screen.getByRole("textbox");
     expect(input).toBeInTheDocument();
@@ -64,7 +60,7 @@ describe("Search", () => {
     expect(state.searchMode).toBe(true);
   });
 
-  test("input value should be the same as the value entered in input element", async () => {
+  test("input value should be the same as the value entered in input element", () => {
     const input = screen.getByRole("textbox") as HTMLInputElement;
     const value = "50 Cent";
     fireEvent.change(input, { target: { value } });

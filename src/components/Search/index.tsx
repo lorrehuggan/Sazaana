@@ -58,6 +58,7 @@ const Search = (props: Props) => {
       </h1>
       <div className="flex items-center">
         <input
+          data-testid="search-input"
           name={`${enabled ? "Track" : "Artist"}`}
           //value={value}
           onChange={handleInput}

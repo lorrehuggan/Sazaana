@@ -7,7 +7,7 @@ import { Provider } from "react-redux";
 import { store } from "../Redux/store";
 
 export const handlers = [
-  rest.get("*/api/main/pre-search?*", (req, res, ctx) => {
+  rest.get("http://localhost:5000/main/*", (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(artistsPre));
   }),
 ];

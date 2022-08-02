@@ -1,9 +1,19 @@
 import { render, screen, cleanup } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import { Provider } from "react-redux";
 import Home from "@/pages/index";
+import { store } from "../src/lib/Redux/store";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 beforeEach(() => {
-  render(<Home />);
+  const queryClient = new QueryClient();
+  render(
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <Home />
+      </QueryClientProvider>
+    </Provider>
+  );
 });
 
 afterAll(cleanup);

@@ -1,12 +1,25 @@
 import { render, screen, cleanup, fireEvent } from "@testing-library/react";
+import { Provider } from "react-redux";
 import "@testing-library/jest-dom";
 import Search from "@/components/Search/index";
+import { store } from "../src/lib/Redux/store";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { renderWithClient } from "@/lib/utils/msw";
 
 beforeEach(() => {
-  render(<Search />);
+  const queryClient = new QueryClient();
+  render(
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <Search />
+      </QueryClientProvider>
+    </Provider>
+  );
 });
 
-afterAll(cleanup);
+afterEach(() => {
+  cleanup();
+});
 
 describe("Search", () => {
   test("it should render a search input", () => {
@@ -29,7 +42,7 @@ describe("Search", () => {
     expect(searchSwitch).toBeInTheDocument();
   });
 
-  test("search placeholder should render search by track when clicked once and toggle back to search by artist when clicked again", () => {
+  test("search placeholder should render 'Search By Track' when clicked once and toggle back to 'Search By Artist' when clicked again", () => {
     const searchSwitch = screen.getByTestId("search-switch");
     const input = screen.getByRole("textbox") as HTMLInputElement;
     expect(input.placeholder).toBe("Search By Artist");
@@ -37,5 +50,24 @@ describe("Search", () => {
     expect(input.placeholder).toBe("Search By Track");
     fireEvent.click(searchSwitch);
     expect(input.placeholder).toBe("Search By Artist");
+  });
+
+  test("search switch state should initially be false", () => {
+    const state = store.getState().searchMode;
+    expect(state.searchMode).toBe(false);
+  });
+
+  test("search switch state should be true when clicked", () => {
+    const searchSwitch = screen.getByTestId("search-switch");
+    fireEvent.click(searchSwitch);
+    const state = store.getState().searchMode;
+    expect(state.searchMode).toBe(true);
+  });
+
+  test("input value should be the same as the value entered in input element", async () => {
+    const input = screen.getByRole("textbox") as HTMLInputElement;
+    const value = "50 Cent";
+    fireEvent.change(input, { target: { value } });
+    expect(input.value).toBe(value);
   });
 });

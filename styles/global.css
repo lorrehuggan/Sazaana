@@ -9,6 +9,6 @@
     @apply mx-auto w-[90%];
   }
   .display-font {
-    @apply bg-gradient-to-r from-c-pink-500 to-c-pink-400 bg-clip-text  text-transparent;
+    @apply bg-gradient-to-r from-c-teal-800 to-c-teal-600 bg-clip-text  text-transparent;
   }
 }

@@ -8,7 +8,7 @@ const Footer = (props: Props) => {
       <p className="text-xs">Project by Lorre Huggan</p>
       <a href="https://twitter.com/lorrehuggan">
         <p className="cursor-pointer text-xs transition-colors duration-200 ease-in-out hover:text-[#1D9BF0]">
-          Twitter
+          Follow Me On Twitter
         </p>
       </a>
     </footer>

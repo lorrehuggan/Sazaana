@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { ArtistResponse } from "../types/PreSearch";
 
-export const getPreArtist = async (id: string, state: string) => {
+export const fetcher = async (id: string, state: string) => {
   const response = await fetch(
     `http://localhost:5000/api/main/pre-search?${state}=${id}`
   );
@@ -13,16 +13,16 @@ export const getPreArtist = async (id: string, state: string) => {
   return response.json();
 };
 
-const usePreArtistSearch = (value: string, state: string) => {
-  const { data } = useQuery<ArtistResponse, Error>(
+const usePreSearch = (value: string, state: string) => {
+  const { data, isLoading, isError } = useQuery<ArtistResponse>(
     ["preSearch", value],
-    () => getPreArtist(value, state),
+    () => fetcher(value, state),
     {
       enabled: false,
     }
   );
 
-  return { data };
+  return { data, isLoading, isError };
 };
 
-export default usePreArtistSearch;
+export default usePreSearch;

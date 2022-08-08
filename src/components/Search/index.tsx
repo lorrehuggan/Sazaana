@@ -67,7 +67,7 @@ const Search = (props: Props) => {
 
   return (
     <>
-      <section className="r-width border-b-2 border-b-neutral-300 pt-4">
+      <section className="r-width border-b-neutral-300 border-b-2 pt-4">
         <h1 className="display-font mb-4 text-5xl font-extrabold tracking-tighter">
           Discover new music with the help of old favorites
         </h1>
@@ -77,7 +77,7 @@ const Search = (props: Props) => {
             name={`${enabled ? "Track" : "Artist"}`}
             value={value}
             onChange={handleInput}
-            className=" w-full py-1 focus:outline-none"
+            className=" w-full bg-transparent py-1 focus:outline-none"
             type="text"
             placeholder={`Search By ${enabled ? "Track" : "Artist"}`}
           />

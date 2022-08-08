@@ -1,17 +1,25 @@
 import React, { useState } from "react";
 import { Switch } from "@headlessui/react";
-import { useAppDispatch } from "../../lib/Redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../lib/Redux/hooks";
 import { setSearchMode } from "../../lib/Redux/reducers/searchMode";
-import usePreSearch from "@/lib/hooks/usePreSearch";
 import { ArtistResponse } from "@/lib/types/PreSearch";
 import { useQuery } from "@tanstack/react-query";
-import ArtistSearch from "./Artist";
+import ArtistSearchResults from "./Artist";
+import { setAppState } from "@/lib/Redux/reducers/appStateReducer";
+import { RootState } from "@/lib/Redux/store";
 
 type Props = {};
 
+const AUTH_TOKEN = process.env.AUTH_TOKEN as string;
+
 const fetcher = async (id: string, state: string) => {
   const response = await fetch(
-    `http://localhost:5000/api/main/pre-search?${state}=${id}`
+    `http://localhost:5000/api/main/pre-search?${state}=${id}`,
+    {
+      headers: {
+        Authorization: AUTH_TOKEN,
+      },
+    }
   );
 
   if (!response.ok) {
@@ -23,9 +31,9 @@ const fetcher = async (id: string, state: string) => {
 
 const Search = (props: Props) => {
   const [value, setValue] = useState("");
-  const [isSearching, setIsSearching] = useState(false);
   const [enabled, setEnabled] = useState(false);
   const [state, setState] = useState("artist");
+  const appState = useAppSelector((state: RootState) => state.appState.message);
 
   const {
     data: artists,
@@ -35,7 +43,7 @@ const Search = (props: Props) => {
     ["preSearch", value],
     () => fetcher(value, state),
     {
-      enabled: isSearching,
+      enabled: appState === "searching" && value.length > 0,
     }
   );
 
@@ -50,9 +58,9 @@ const Search = (props: Props) => {
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value.length > 0 && e.target.value.length < 12) {
-      setIsSearching(true);
+      dispatch(setAppState("searching"));
     } else {
-      setIsSearching(false);
+      dispatch(setAppState(""));
     }
     setValue(e.target.value);
   };
@@ -60,7 +68,7 @@ const Search = (props: Props) => {
   return (
     <>
       <section className="r-width border-b-2 border-b-neutral-300 pt-4">
-        <h1 className="display-font mb-4 font-display text-5xl">
+        <h1 className="display-font mb-4 text-5xl font-extrabold tracking-tighter">
           Discover new music with the help of old favorites
         </h1>
         <div className="flex items-center">
@@ -89,7 +97,11 @@ const Search = (props: Props) => {
           </Switch>
         </div>
       </section>
-      {artists && isSearching && <ArtistSearch artists={artists} />}
+      {/* these need be taken care of in the near future */}
+      {isLoading && appState === "searching" && <p>Loading...</p>}
+      {artists && appState === "searching" && (
+        <ArtistSearchResults artists={artists} setValue={setValue} />
+      )}
     </>
   );
 };

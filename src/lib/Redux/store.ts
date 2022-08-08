@@ -1,9 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import searchModeReducer from "./reducers/searchMode";
+import appStateReducer from "./reducers/appStateReducer";
+import dataStateReducer from "./reducers/dataReducer";
 
 export const store = configureStore({
   reducer: {
     searchMode: searchModeReducer,
+    appState: appStateReducer,
+    dataState: dataStateReducer,
   },
 });
 

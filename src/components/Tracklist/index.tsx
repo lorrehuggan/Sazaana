@@ -6,8 +6,9 @@ import Heading from "./Heading";
 import AlbumImage from "./Image";
 import Title from "./Title";
 import Preview from "./Preview";
-import { FiArrowUp, FiArrowDown } from "react-icons/fi";
 import { Main } from "@/lib/types/mainSearch";
+import Sort from "./Sort";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 export interface ITracklistProps {}
 
@@ -17,10 +18,12 @@ export default function Tracklist(props: ITracklistProps) {
   const trackData = useAppSelector((state: RootState) => state.dataState.data)!;
   const [shuffle, setShuffle] = React.useState<Main[]>(trackData.data);
   const [tracklistDuration, setTracklistDuration] = React.useState<number>(0);
-  const [sortBy, setSortBy] = React.useState({
-    danceAbility: true,
-    energy: true,
-    tempo: true,
+  const [sortByDance, setSortByDance] = React.useState(true);
+  const [sortByEnergy, setSortByEnergy] = React.useState(true);
+  const [sortByTempo, setSortByTempo] = React.useState(true);
+  const [parent] = useAutoAnimate<HTMLDivElement>({
+    easing: "ease-in-out",
+    duration: 350,
   });
 
   React.useEffect(() => {
@@ -34,82 +37,44 @@ export default function Tracklist(props: ITracklistProps) {
     setTracklistDuration(durations.reduce((acc, curr) => acc + curr, 0));
   }, [numberOfTracks]);
 
-  const filteredBy = (filterBy: string) => {
-    switch (filterBy) {
-      case "danceability":
-        setFilterBy("danceability");
-        setShuffle(
-          shuffle.sort(
-            (a, b) => b.features.danceability - a.features.danceability
-          )
-        );
-
-        break;
-      case "energy":
-        setFilterBy("energy");
-        setShuffle(
-          shuffle.sort((a, b) => b.features.energy - a.features.energy)
-        );
-
-        break;
-      case "tempo":
-        setFilterBy("tempo");
-        setShuffle(shuffle.sort((a, b) => b.features.tempo - a.features.tempo));
-
-        break;
-
-      default:
-        break;
-    }
-  };
-
   return (
     <section className="r-width my-6">
       <Heading totalDuration={tracklistDuration} />
       <div className="mb-2 flex items-center justify-between">
         <p className="text-sm">Sort by:</p>
-        <div className="flex items-center space-x-1">
-          <div
-            onClick={() => filteredBy("danceability")}
-            className={`flex cursor-pointer items-center space-x-1 border border-white p-1 text-xs uppercase ${
-              filterBy === "danceability" ? "border-primary text-primary" : null
-            }`}
-          >
-            <span>Dance-ability</span>
-          </div>
-          <div
-            onClick={() => filteredBy("energy")}
-            className={`flex cursor-pointer items-center space-x-1 border border-white p-1 text-xs uppercase  ${
-              filterBy === "energy" ? "border-primary text-primary" : null
-            }`}
-          >
-            <span>Energy</span>
-          </div>
-          <div
-            onClick={() => filteredBy("tempo")}
-            className={`flex cursor-pointer items-center space-x-1 border border-white p-1 text-xs uppercase  ${
-              filterBy === "tempo" ? "border-primary text-primary" : null
-            }`}
-          >
-            <span>Tempo</span>
-          </div>
-        </div>
+        <Sort
+          setFilterBy={setFilterBy}
+          sortByDance={sortByDance}
+          filterBy={filterBy}
+          setSortByDance={setSortByDance}
+          setSortByEnergy={setSortByEnergy}
+          setSortByTempo={setSortByTempo}
+          setShuffle={setShuffle}
+          shuffle={shuffle}
+          sortByEnergy={sortByEnergy}
+          sortByTempo={sortByTempo}
+        />
       </div>
-      {shuffle.map((track) => {
-        return (
-          <div key={track.data.id} className="flex items-center space-x-4 py-2">
-            <AlbumImage track={track} />
+      <div ref={parent}>
+        {shuffle.map((track) => {
+          return (
+            <div
+              key={track.data.id}
+              className="flex items-center space-x-4 py-2"
+            >
+              <AlbumImage track={track} />
 
-            <Title track={track} />
+              <Title track={track} />
 
-            <Preview track={track} />
+              <Preview track={track} />
 
-            <span className="text-xs">
-              {convertMsToMinutesSeconds(track.data.duration)}
-            </span>
-          </div>
-        );
-      })}
+              <span className="text-xs">
+                {convertMsToMinutesSeconds(track.data.duration)}
+              </span>
+            </div>
+          );
+        })}
+      </div>
     </section>
   );
 }

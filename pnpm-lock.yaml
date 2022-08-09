@@ -1,7 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@formkit/auto-animate': github:formkit/auto-animate
+  '@formkit/auto-animate': 1.0.0-beta.1
   '@headlessui/react': ^1.6.6
   '@reduxjs/toolkit': ^1.8.3
   '@tanstack/react-query': ^4.0.10
@@ -13,7 +13,6 @@ specifiers:
   '@types/node': ^18.6.3
   '@types/react': 18.0.9
   '@types/react-redux': ^7.1.24
-  '@types/spotify-web-api-js': ^0.21.0
   '@types/spotify-web-api-node': ^5.0.7
   '@types/testing-library__jest-dom': ^5.14.5
   autoprefixer: ^10.4.8
@@ -37,7 +36,7 @@ specifiers:
   typescript: 4.6.4
 
 dependencies:
-  '@formkit/auto-animate': github.com/formkit/auto-animate/8f9dc868c03e5c065a076db0308e52424f462bf7_react@18.2.0
+  '@formkit/auto-animate': 1.0.0-beta.1_react@18.2.0
   '@headlessui/react': 1.6.6_biqbaboplfbrettd7655fr4n2y
   '@reduxjs/toolkit': 1.8.3_kkwg4cbsojnjnupd3btipussee
   '@tanstack/react-query': 4.0.10_biqbaboplfbrettd7655fr4n2y
@@ -59,7 +58,6 @@ devDependencies:
   '@types/node': 18.6.3
   '@types/react': 18.0.9
   '@types/react-redux': 7.1.24
-  '@types/spotify-web-api-js': 0.21.0
   '@types/spotify-web-api-node': 5.0.7
   '@types/testing-library__jest-dom': 5.14.5
   autoprefixer: 10.4.8_postcss@8.4.14
@@ -368,6 +366,20 @@ packages:
 
   /@bcoe/v8-coverage/0.2.3:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
+
+  /@formkit/auto-animate/1.0.0-beta.1_react@18.2.0:
+    resolution: {integrity: sha512-I3OWOBaPZKSJL4bsooXI8kC3q7bcgibD2oML0P/Lir6MnbvUe/0/7EH8br024juvM/Ulm9C9xGx9CJUQYrOWSA==}
+    peerDependencies:
+      react: ^16.8.0
+      vue: ^3.0.0
+    peerDependenciesMeta:
+      react:
+        optional: true
+      vue:
+        optional: true
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /@headlessui/react/1.6.6_biqbaboplfbrettd7655fr4n2y:
     resolution: {integrity: sha512-MFJtmj9Xh/hhBMhLccGbBoSk+sk61BlP6sJe4uQcVMtXZhCgGqd2GyIQzzmsdPdTEWGSF434CBi8mnhR6um46Q==}
@@ -1058,13 +1070,6 @@ packages:
 
   /@types/spotify-api/0.0.16:
     resolution: {integrity: sha512-5tzZ8cJe2Wv5zjhBLXi7gJObp/kzuG10FwMKPqNtmG9HFWlXKvqBhd0Z+T5Oa0yhkSX1u8Y+bBUhUEPmZpGpDQ==}
-    dev: true
-
-  /@types/spotify-web-api-js/0.21.0:
-    resolution: {integrity: sha512-erdS6yjnUsAVKMj/YKBbpvs5gFTFnc06Lrk2qgNgJ8Ta1W+hudtRjORnBRqdAso205u1Z2FKbTWrUI3wwM+BRw==}
-    deprecated: This is a stub types definition for spotify-web-api-js (https://github.com/JMPerez/spotify-web-api-js). spotify-web-api-js provides its own type definitions, so you don't need @types/spotify-web-api-js installed!
-    dependencies:
-      spotify-web-api-js: 1.5.2
     dev: true
 
   /@types/spotify-web-api-node/5.0.7:
@@ -3707,10 +3712,6 @@ packages:
     resolution: {integrity: sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==}
     engines: {node: '>=0.10.0'}
 
-  /spotify-web-api-js/1.5.2:
-    resolution: {integrity: sha512-ie1gbg1wCabfobIkXTIBLUMyULS/hMCpF44Cdx2pAO0/+FrjhNSDjlDzcwCEDy+ZIo3Fscs+Gkg/GTeQ/ijo+Q==}
-    dev: true
-
   /spotify-web-api-node/5.0.2:
     resolution: {integrity: sha512-r82dRWU9PMimHvHEzL0DwEJrzFk+SMCVfq249SLt3I7EFez7R+jeoKQd+M1//QcnjqlXPs2am4DFsGk8/GCsrA==}
     dependencies:
@@ -4263,20 +4264,3 @@ packages:
   /yocto-queue/0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
-
-  github.com/formkit/auto-animate/8f9dc868c03e5c065a076db0308e52424f462bf7_react@18.2.0:
-    resolution: {tarball: https://codeload.github.com/formkit/auto-animate/tar.gz/8f9dc868c03e5c065a076db0308e52424f462bf7}
-    id: github.com/formkit/auto-animate/8f9dc868c03e5c065a076db0308e52424f462bf7
-    name: '@formkit/auto-animate'
-    version: 1.0.0-beta.1
-    peerDependencies:
-      react: ^16.8.0
-      vue: ^3.0.0
-    peerDependenciesMeta:
-      react:
-        optional: true
-      vue:
-        optional: true
-    dependencies:
-      react: 18.2.0
-    dev: false

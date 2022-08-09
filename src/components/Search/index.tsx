@@ -83,20 +83,6 @@ const Search = (props: Props) => {
             placeholder={`Search By ${enabled ? "Track" : "Artist"}`}
           />
           <span className="text-xs">Reset</span>
-          {/* <Switch
-            data-testid="search-switch"
-            checked={enabled}
-            onChange={handleSwitch}
-            className={`${
-              enabled ? "bg-c-teal-300" : "bg-c-teal-400"
-            } relative mx-1 inline-flex h-6 w-11 items-center rounded-full transition-all duration-200 ease-in-out`}
-          >
-            <span
-              className={`${
-                enabled ? "translate-x-5 sm:translate-x-6" : "translate-x-1"
-              } inline-block h-4 w-4 transform rounded-full bg-white transition-all duration-200 ease-in-out`}
-            />
-          </Switch> */}
         </div>
       </section>
       {/* these need be taken care of in the near future */}

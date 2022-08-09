@@ -12,3 +12,4 @@ export const PRE_ENDPOINT =
   BASE + "https://qwanfy.herokuapp.com/api/main/pre-search";
 
 export const USER_ENDPOINT = BASE + "stor/get-user";
+export const TEST_ENDPOINT = BASE + "main/test";

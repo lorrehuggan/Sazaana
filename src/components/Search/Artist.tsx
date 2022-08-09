@@ -2,7 +2,7 @@ import { ArtistResponse } from "@/lib/types/PreSearch";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { MAIN_ENDPOINT } from "@/lib/api";
+import { MAIN_ENDPOINT, TEST_ENDPOINT } from "@/lib/api";
 import { MainResponse } from "@/lib/types/mainSearch";
 import { useAppDispatch, useAppSelector } from "../../lib/Redux/hooks";
 import { setDataState } from "@/lib/Redux/reducers/dataReducer";
@@ -19,7 +19,7 @@ const AUTH_TOKEN =
   "BQC-Z-uPC6Kz97-S9103cFFbcXdlrYXEaGkW7HBC9qoaAAYycIo8E1bNCuYTVBq4f17rJr-DPLKj2xEOG99mIShPBYmtLyvr33McHulJHtuzlkGaqs";
 
 const fetcher = async (id: string) => {
-  const response = await fetch(`${MAIN_ENDPOINT}?id=${id}`, {
+  const response = await fetch(`${TEST_ENDPOINT}?id=${id}`, {
     headers: {
       Authorization: AUTH_TOKEN,
     },

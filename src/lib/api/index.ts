@@ -6,7 +6,7 @@ const BASE = `${ENV}api/`;
 //import.meta.env.VITE_AUTH_TOKEN
 
 //export const MAIN_ENDPOINT = BASE + "main";
-export const MAIN_ENDPOINT = "https://qwanfy.herokuapp.com/api/main";
+export const MAIN_ENDPOINT = BASE + "main";
 
 export const PRE_ENDPOINT =
   BASE + "https://qwanfy.herokuapp.com/api/main/pre-search";

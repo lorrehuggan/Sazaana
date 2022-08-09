@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import ArtistSearchResults from "./Artist";
 import { setAppState } from "@/lib/Redux/reducers/appStateReducer";
 import { RootState } from "@/lib/Redux/store";
+import Loading from "./Loading";
 
 type Props = {};
 
@@ -81,7 +82,8 @@ const Search = (props: Props) => {
             type="text"
             placeholder={`Search By ${enabled ? "Track" : "Artist"}`}
           />
-          <Switch
+          <span className="text-xs">Reset</span>
+          {/* <Switch
             data-testid="search-switch"
             checked={enabled}
             onChange={handleSwitch}
@@ -94,14 +96,14 @@ const Search = (props: Props) => {
                 enabled ? "translate-x-5 sm:translate-x-6" : "translate-x-1"
               } inline-block h-4 w-4 transform rounded-full bg-white transition-all duration-200 ease-in-out`}
             />
-          </Switch>
+          </Switch> */}
         </div>
       </section>
       {/* these need be taken care of in the near future */}
-      {isLoading && appState === "searching" && <p>Loading...</p>}
-      {artists && appState === "searching" && (
+      {isLoading && appState === "searching" && <Loading />}
+      {artists && appState === "searching" ? (
         <ArtistSearchResults artists={artists} setValue={setValue} />
-      )}
+      ) : null}
     </>
   );
 };

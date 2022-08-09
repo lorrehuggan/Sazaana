@@ -9,9 +9,9 @@
     @apply mx-auto w-[90%];
   }
   .display-font {
-    @apply bg-gradient-to-r from-c-teal-700 to-c-pink-400 bg-clip-text  text-transparent;
+    @apply bg-gradient-to-r from-primary to-secondary bg-clip-text  text-transparent;
   }
   .primary-gradient {
-    @apply bg-gradient-to-r from-c-teal-700 to-c-pink-400;
+    @apply bg-gradient-to-r from-primary to-secondary;
   }
 }

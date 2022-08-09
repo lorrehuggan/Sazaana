@@ -11,6 +11,16 @@ module.exports = {
         sans: ["Inter", ...defaultTheme.fontFamily.sans],
         display: ["Bebas Neue", ...defaultTheme.fontFamily.sans],
       },
+      keyframes: {
+        loading: {
+          "0%": { transform: "translateX(0)" },
+          "50%": { transform: "translateX(300%)" },
+          "100%": { transform: "translateX(0)" },
+        },
+      },
+      animation: {
+        loading: "loading 0.5s ease-in-out infinite",
+      },
       colors: {
         "c-teal": {
           50: "#f6fcfe",
@@ -75,8 +85,8 @@ module.exports = {
       },
     },
   },
-daisyui: {
-    themes: ['dracula'],
+  daisyui: {
+    themes: ["dracula"],
   },
   plugins: [require("daisyui")],
 };

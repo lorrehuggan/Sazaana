@@ -6,7 +6,9 @@ import { MAIN_ENDPOINT } from "@/lib/api";
 import { MainResponse } from "@/lib/types/mainSearch";
 import { useAppDispatch, useAppSelector } from "../../lib/Redux/hooks";
 import { setDataState } from "@/lib/Redux/reducers/dataReducer";
+import { setSearchState } from "@/lib/Redux/reducers/SearchReducer";
 import { RootState } from "@/lib/Redux/store";
+import { setAppState } from "@/lib/Redux/reducers/appStateReducer";
 
 export interface IArtistSearchProps {
   artists: ArtistResponse | undefined;
@@ -49,32 +51,38 @@ export default function ArtistSearchResults({
   useEffect(() => {
     if (data) {
       dispatch(setDataState(data));
+      dispatch(setAppState(""));
     }
   }, [data]);
 
+  const handleSearch = (id: string, name: string) => {
+    setId(id);
+    setSearchState({ id, name });
+  };
+
   return (
-    <ul className="r-width border-neutral z-50 mx-auto max-h-52 overflow-y-scroll rounded-b-xl border-b-2 border-r-2 border-l-2 py-2 shadow-lg">
-      {artists?.data.map((artist, i) => {
-        return (
-          <li
-            onClick={() => {
-              setId(artist.id);
-            }}
-            key={i}
-            className="flex cursor-pointer items-center space-x-2 p-2 hover:bg-neutral-100"
-          >
-            <div className="relative h-12 w-12 overflow-hidden rounded-xl">
-              <Image
-                src={artist.images[0].url}
-                alt={artist.name}
-                layout="fill"
-                objectFit="cover"
-              />
+    <div className="dropdown-open">
+      <div className="r-width  dropdown-content menu max-h-56 space-y-3 overflow-y-scroll rounded-b-xl bg-base-300 p-2 py-2 text-neutral shadow-lg">
+        {artists?.data.map((artist, i) => {
+          return (
+            <div
+              onClick={() => handleSearch(artist.id, artist.name)}
+              key={i}
+              className="flex cursor-pointer items-center space-x-2 transition-all duration-200 ease-in-out hover:bg-pink-300"
+            >
+              <div className="relative h-12 w-12 overflow-hidden rounded-xl">
+                <Image
+                  src={artist.images[0].url}
+                  alt={artist.name}
+                  layout="fill"
+                  objectFit="cover"
+                />
+              </div>
+              <p className="text-sm font-bold text-white">{artist.name}</p>
             </div>
-            <p className="text-sm">{artist.name}</p>
-          </li>
-        );
-      })}
-    </ul>
+          );
+        })}
+      </div>
+    </div>
   );
 }

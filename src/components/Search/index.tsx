@@ -70,12 +70,12 @@ const Search = (props: Props) => {
     <>
       <section className="r-width border-b-neutral-300 border-b-2 pt-4">
         <h1 className="display-font mb-4 text-5xl font-extrabold tracking-tighter">
-          Discover new music with the help of old favorites
+          {`Discover new music with the help of your favorite artist`}
         </h1>
         <div className="flex items-center">
           <input
             data-testid="search-input"
-            name={`${enabled ? "Track" : "Artist"}`}
+            name="Artist"
             value={value}
             onChange={handleInput}
             className=" w-full bg-transparent py-1 focus:outline-none"

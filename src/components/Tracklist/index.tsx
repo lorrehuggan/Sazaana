@@ -14,7 +14,9 @@ export interface ITracklistProps {}
 
 export default function Tracklist(props: ITracklistProps) {
   const [filterBy, setFilterBy] = React.useState<string | null>(null);
-  const [numberOfTracks, setNumberOfTracks] = React.useState(20);
+  const numOfTracks = useAppSelector(
+    (state: RootState) => state.trackSettingsState.maxNumOfTracks
+  );
   const trackData = useAppSelector((state: RootState) => state.dataState.data)!;
   const [shuffle, setShuffle] = React.useState<Main[]>(trackData.data);
   const [tracklistDuration, setTracklistDuration] = React.useState<number>(0);
@@ -27,34 +29,30 @@ export default function Tracklist(props: ITracklistProps) {
   });
 
   React.useEffect(() => {
-    setShuffle(randomizeArray([...trackData.data]));
-    setShuffle(shuffle.slice(0, numberOfTracks));
-
+    setShuffle(randomizeArray([...trackData.data]).slice(0, numOfTracks));
     const durations = shuffle
-      .slice(0, numberOfTracks)
+      .slice(0, numOfTracks)
       .map((track) => track.data.duration);
 
     setTracklistDuration(durations.reduce((acc, curr) => acc + curr, 0));
-  }, [numberOfTracks]);
+  }, [numOfTracks]);
 
   return (
     <section className="r-width my-6">
       <Heading totalDuration={tracklistDuration} />
-      <div className="mb-2 flex items-center justify-between">
-        <p className="text-sm">Sort by:</p>
-        <Sort
-          setFilterBy={setFilterBy}
-          sortByDance={sortByDance}
-          filterBy={filterBy}
-          setSortByDance={setSortByDance}
-          setSortByEnergy={setSortByEnergy}
-          setSortByTempo={setSortByTempo}
-          setShuffle={setShuffle}
-          shuffle={shuffle}
-          sortByEnergy={sortByEnergy}
-          sortByTempo={sortByTempo}
-        />
-      </div>
+      <Sort
+        setFilterBy={setFilterBy}
+        sortByDance={sortByDance}
+        filterBy={filterBy}
+        setSortByDance={setSortByDance}
+        setSortByEnergy={setSortByEnergy}
+        setSortByTempo={setSortByTempo}
+        setShuffle={setShuffle}
+        shuffle={shuffle}
+        sortByEnergy={sortByEnergy}
+        sortByTempo={sortByTempo}
+      />
+
       <div ref={parent}>
         {shuffle.map((track) => {
           return (

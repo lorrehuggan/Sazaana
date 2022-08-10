@@ -24,6 +24,7 @@ export interface Data {
   preview_url: null;
   images: Image[];
   albumURL: string;
+  trackURL: string;
   popularity: number;
   explicit: boolean;
   duration: number;

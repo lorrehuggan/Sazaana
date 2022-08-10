@@ -48,7 +48,7 @@ export default function Sort({
       case "energy":
         setFilterBy("energy");
         setSortByEnergy(!sortByEnergy);
-        sortByDance
+        sortByEnergy
           ? setShuffle(
               shuffle.sort((a, b) => b.features.energy + a.features.energy)
             )
@@ -75,45 +75,48 @@ export default function Sort({
     }
   };
   return (
-    <div className="flex items-center space-x-1">
-      <div
-        onClick={() => filteredBy("danceability")}
-        className={`flex cursor-pointer items-center space-x-1 border border-white p-1 text-xs uppercase ${
-          filterBy === "danceability" ? "border-primary text-primary" : null
-        }`}
-      >
-        {sortByDance && filterBy === "danceability" ? (
-          <FiArrowUp />
-        ) : !sortByDance && filterBy === "danceability" ? (
-          <FiArrowDown />
-        ) : null}
-        <span>Dance-ability</span>
-      </div>
-      <div
-        onClick={() => filteredBy("energy")}
-        className={`flex cursor-pointer items-center space-x-1 border border-white p-1 text-xs uppercase ${
-          filterBy === "energy" ? "border-primary text-primary" : null
-        }`}
-      >
-        {sortByEnergy && filterBy === "energy" ? (
-          <FiArrowUp />
-        ) : !sortByEnergy && filterBy === "energy" ? (
-          <FiArrowDown />
-        ) : null}
-        <span>Energy</span>
-      </div>
-      <div
-        onClick={() => filteredBy("tempo")}
-        className={`flex cursor-pointer items-center space-x-1 border border-white p-1 text-xs uppercase ${
-          filterBy === "tempo" ? "border-primary text-primary" : null
-        }`}
-      >
-        {sortByTempo && filterBy === "tempo" ? (
-          <FiArrowUp />
-        ) : !sortByTempo && filterBy === "tempo" ? (
-          <FiArrowDown />
-        ) : null}
-        <span>Tempo</span>
+    <div className="mb-2 flex items-center justify-between">
+      <p className="text-sm">Sort by:</p>
+      <div className="flex items-center space-x-1">
+        <div
+          onClick={() => filteredBy("danceability")}
+          className={`flex cursor-pointer items-center space-x-1 border border-white p-1 text-xs uppercase ${
+            filterBy === "danceability" ? "border-accent text-accent" : null
+          }`}
+        >
+          {!sortByDance && filterBy === "danceability" ? (
+            <FiArrowUp />
+          ) : sortByDance && filterBy === "danceability" ? (
+            <FiArrowDown />
+          ) : null}
+          <span>Dance-ability</span>
+        </div>
+        <div
+          onClick={() => filteredBy("energy")}
+          className={`flex cursor-pointer items-center space-x-1 border border-white p-1 text-xs uppercase ${
+            filterBy === "energy" ? "border-accent text-accent" : null
+          }`}
+        >
+          {!sortByEnergy && filterBy === "energy" ? (
+            <FiArrowUp />
+          ) : sortByEnergy && filterBy === "energy" ? (
+            <FiArrowDown />
+          ) : null}
+          <span>Energy</span>
+        </div>
+        <div
+          onClick={() => filteredBy("tempo")}
+          className={`flex cursor-pointer items-center space-x-1 border border-white p-1 text-xs uppercase ${
+            filterBy === "tempo" ? "border-accent text-accent" : null
+          }`}
+        >
+          {!sortByTempo && filterBy === "tempo" ? (
+            <FiArrowUp />
+          ) : sortByTempo && filterBy === "tempo" ? (
+            <FiArrowDown />
+          ) : null}
+          <span>Tempo</span>
+        </div>
       </div>
     </div>
   );

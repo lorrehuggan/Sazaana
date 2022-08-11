@@ -15,9 +15,13 @@ export default function Home() {
       <Header />
       <Main>
         <Search />
-        <SignIn />
-        <Settings />
-        {trackData && <Tracklist />}
+        {trackData && (
+          <>
+            <SignIn />
+            <Settings />
+            <Tracklist />
+          </>
+        )}
       </Main>
       <Footer />
     </>

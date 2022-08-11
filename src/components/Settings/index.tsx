@@ -1,7 +1,7 @@
 import { useAppSelector } from "@/lib/Redux/hooks";
 import { RootState } from "@/lib/Redux/store";
 import * as React from "react";
-import { BiArrowFromTop } from "react-icons/bi";
+import { BiArrowFromTop, BiArrowFromBottom } from "react-icons/bi";
 import Input from "./Input";
 import NumberOfTracks from "./NumOfTracks";
 
@@ -9,13 +9,10 @@ export interface ISettingsProps {}
 
 export default function Settings(props: ISettingsProps) {
   const [isOpen, setIsOpen] = React.useState(false);
-  const [value, setValue] = React.useState(0);
   const trackSettings = useAppSelector(
     (state: RootState) => state.trackSettingsState
   );
-  const [statePopularity, setStatePopularity] = React.useState(
-    trackSettings.popularity
-  );
+
   return (
     <div
       className={`r-width mt-4 cursor-pointer rounded-md bg-base-300 p-3 shadow-lg`}
@@ -30,7 +27,7 @@ export default function Settings(props: ISettingsProps) {
             isOpen ? "rotate-180" : ""
           } transition-transform duration-300 ease-in-out`}
         >
-          <BiArrowFromTop />
+          <BiArrowFromBottom />
         </div>
       </div>
       {isOpen && (
@@ -47,12 +44,48 @@ export default function Settings(props: ISettingsProps) {
           />
           <Input
             category="Energy"
-            lowLabel="Playing at bars"
-            highLabel="World Tour"
+            lowLabel="Chill"
+            highLabel="No Chill"
             min={0}
-            max={100}
-            step={10}
+            max={1}
+            step={0.1}
             initValue={trackSettings.energy}
+          />
+          <Input
+            category="Tempo"
+            lowLabel="Slow"
+            highLabel="Fast"
+            min={0}
+            max={250}
+            step={10}
+            initValue={trackSettings.tempo}
+          />
+          <Input
+            category="Dance-ability"
+            lowLabel="Stiff"
+            highLabel="Disco Fever"
+            min={0}
+            max={1}
+            step={0.1}
+            initValue={trackSettings.danceability}
+          />
+          <Input
+            category="Valence"
+            lowLabel="Sombre"
+            highLabel="Happy"
+            min={0}
+            max={1}
+            step={0.1}
+            initValue={trackSettings.valence}
+          />
+          <Input
+            category="Acousticness"
+            lowLabel="Digital"
+            highLabel="Analog"
+            min={0}
+            max={1}
+            step={0.1}
+            initValue={trackSettings.acousticness}
           />
         </>
       )}

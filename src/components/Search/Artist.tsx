@@ -9,6 +9,7 @@ import { setDataState } from "@/lib/Redux/reducers/dataReducer";
 import { setSearchState } from "@/lib/Redux/reducers/SearchReducer";
 import { RootState } from "@/lib/Redux/store";
 import { setAppState } from "@/lib/Redux/reducers/appStateReducer";
+import { randomizeArray } from "@/lib/utils";
 
 export interface IArtistSearchProps {
   artists: ArtistResponse | undefined;
@@ -36,6 +37,9 @@ export default function ArtistSearchResults({
   artists,
   setValue,
 }: IArtistSearchProps) {
+  const { maxNumOfTracks } = useAppSelector(
+    (state: RootState) => state.trackSettingsState
+  );
   const [id, setId] = useState("");
   const appState = useAppSelector((state: RootState) => state.appState.message);
   const { data, isLoading, isError } = useQuery<MainResponse>(
@@ -50,7 +54,9 @@ export default function ArtistSearchResults({
 
   useEffect(() => {
     if (data) {
-      dispatch(setDataState(data));
+      dispatch(
+        setDataState(randomizeArray([...data.data].slice(0, maxNumOfTracks)))
+      );
       dispatch(setAppState(""));
     }
   }, [data]);

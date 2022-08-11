@@ -71,7 +71,7 @@ export default function Input({
         );
 
         break;
-      case "Valance":
+      case "Valence":
         setValue(Number(e.target.value));
         dispatch(
           setTrackSettingsState({
@@ -97,8 +97,8 @@ export default function Input({
     }
   };
   return (
-    <div className="mt-2">
-      <p className="mb-1 text-xs text-primary">{category}</p>
+    <div className="mt-2 border-b border-white/20 py-2">
+      <p className="mb-1 text-xs uppercase text-primary">{category}</p>
       <input
         onChange={(e) => update(e)}
         type="range"

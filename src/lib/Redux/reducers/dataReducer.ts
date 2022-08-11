@@ -1,9 +1,9 @@
-import { MainResponse } from "@/lib/types/mainSearch";
+import { Main, MainResponse } from "@/lib/types/mainSearch";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
 
 interface DataState {
-  data: MainResponse | null;
+  data: Main[] | null;
 }
 
 const initialState: DataState = {
@@ -14,7 +14,7 @@ const dataStateSlice = createSlice({
   name: "dataState",
   initialState,
   reducers: {
-    setDataState: (state, action: PayloadAction<MainResponse>) => {
+    setDataState: (state, action: PayloadAction<Main[]>) => {
       state.data = action.payload;
     },
   },

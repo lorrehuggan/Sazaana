@@ -47,7 +47,7 @@ export default function Tracklist(props: ITracklistProps) {
       valence > 0
     ) {
       setShuffle(
-        trackData.filter((track) => {
+        trackData.slice(0, maxNumOfTracks).filter((track) => {
           return (
             track.data.popularity >= popularity &&
             track.features.energy >= energy &&
@@ -59,7 +59,7 @@ export default function Tracklist(props: ITracklistProps) {
         })
       );
     } else {
-      setShuffle(trackData);
+      setShuffle(trackData.slice(0, maxNumOfTracks));
     }
   }, [
     maxNumOfTracks,
@@ -72,8 +72,8 @@ export default function Tracklist(props: ITracklistProps) {
   ]);
 
   return (
-    <section className="r-width my-6">
-      <Heading totalDuration={tracklistDuration} />
+    <section className="r-width my-6 lg:my-0">
+      <Heading />
       <Sort
         setFilterBy={setFilterBy}
         sortByDance={sortByDance}
@@ -91,14 +91,13 @@ export default function Tracklist(props: ITracklistProps) {
         {shuffle.length === 0 && (
           <p className="mt-2 text-sm uppercase">No tracks available</p>
         )}
-        {shuffle.map((track) => {
+        {shuffle.map((track, i) => {
           return (
             <div
               key={track.data.id}
               className="flex items-center space-x-4 py-2"
             >
               <AlbumImage track={track} />
-
               <Title track={track} />
 
               <Preview track={track} />

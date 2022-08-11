@@ -15,7 +15,7 @@ const AUTH_TOKEN = process.env.AUTH_TOKEN as string;
 
 const fetcher = async (id: string, state: string) => {
   const response = await fetch(
-    `http://localhost:5000/api/main/pre-search?${state}=${id}`,
+    `http://localhost:5000/api/main/artist?${state}=${id}`,
     {
       headers: {
         Authorization: AUTH_TOKEN,

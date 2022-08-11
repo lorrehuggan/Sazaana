@@ -1,6 +1,7 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Main from "@/components/Main";
+import Query from "@/components/Query";
 import Search from "@/components/Search";
 import Settings from "@/components/Settings";
 import SignIn from "@/components/SignIn";
@@ -17,9 +18,14 @@ export default function Home() {
         <Search />
         {trackData && (
           <>
-            <SignIn />
-            <Settings />
-            <Tracklist />
+            <Query />
+            <section className="lg:mx-auto lg:mt-8 lg:flex lg:w-[95%] lg:space-x-4">
+              <div>
+                <SignIn />
+                <Settings />
+              </div>
+              <Tracklist />
+            </section>
           </>
         )}
       </Main>

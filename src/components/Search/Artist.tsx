@@ -54,9 +54,7 @@ export default function ArtistSearchResults({
 
   useEffect(() => {
     if (data) {
-      dispatch(
-        setDataState(randomizeArray([...data.data].slice(0, maxNumOfTracks)))
-      );
+      dispatch(setDataState(randomizeArray([...data.data])));
       dispatch(setAppState(""));
     }
   }, [data]);

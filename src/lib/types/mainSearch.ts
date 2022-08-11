@@ -5,6 +5,7 @@ export interface MainResponse {
 export interface Main {
   features: Features;
   data: Data;
+  query: Query;
 }
 
 export interface AudioFeatures {
@@ -173,4 +174,12 @@ export interface Image {
   url: string;
   height: number;
   width: number;
+}
+
+export interface Query {
+  name: string;
+  id: string;
+  image: string;
+  followers: number;
+  url: string;
 }

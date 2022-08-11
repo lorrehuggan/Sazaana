@@ -6,7 +6,7 @@
 
 @layer components {
   .r-width {
-    @apply mx-auto w-[90%];
+    @apply mx-auto w-[95%];
   }
   .display-font {
     @apply bg-gradient-to-r from-primary to-secondary bg-clip-text  text-transparent;

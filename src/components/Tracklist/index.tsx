@@ -72,7 +72,7 @@ export default function Tracklist(props: ITracklistProps) {
   ]);
 
   return (
-    <section className="r-width my-6 lg:my-0">
+    <section className="mx-auto my-6 w-[95%] lg:my-0">
       <Heading />
       <Sort
         setFilterBy={setFilterBy}

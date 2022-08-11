@@ -65,8 +65,8 @@ export default function ArtistSearchResults({
   };
 
   return (
-    <div className="dropdown-open">
-      <div className="r-width  dropdown-content menu max-h-56 space-y-3 overflow-y-scroll rounded-b-xl bg-base-300 p-2 py-2 text-neutral shadow-lg">
+    <div className="dropdown-open ">
+      <div className="dropdown-content menu mx-auto  max-h-56 w-[95%] space-y-3 overflow-y-scroll rounded-b-xl bg-base-300 p-2 py-2 text-neutral shadow-lg xl:w-[50%]">
         {artists?.data.map((artist, i) => {
           return (
             <div

@@ -21,7 +21,7 @@ export default function Settings(props: ISettingsProps) {
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center justify-between"
       >
-        <p className="text-sm">Show Tracklist Settings</p>
+        <p className="text-sm lg:text-base">Show Tracklist Settings</p>
         <div
           className={`${
             isOpen ? "rotate-180" : ""

@@ -19,10 +19,12 @@ export default function Home() {
         {trackData && (
           <>
             <Query />
-            <section className="lg:mx-auto lg:mt-8 lg:flex lg:w-[95%] lg:space-x-4">
+            <section className="lg:relative lg:mx-auto lg:mt-8 lg:flex lg:w-[95%] lg:space-x-4 xl:w-[50%]">
               <div>
-                <SignIn />
-                <Settings />
+                <div className="lg:sticky lg:top-5">
+                  <SignIn />
+                  <Settings />
+                </div>
               </div>
               <Tracklist />
             </section>

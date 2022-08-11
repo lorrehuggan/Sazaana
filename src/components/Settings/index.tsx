@@ -15,7 +15,7 @@ export default function Settings(props: ISettingsProps) {
 
   return (
     <div
-      className={`r-width mt-4 cursor-pointer rounded-md bg-base-300 p-3 shadow-lg lg:w-full`}
+      className={`mt-4 cursor-pointer rounded-md bg-base-300 p-3 shadow-lg lg:w-full`}
     >
       <div
         onClick={() => setIsOpen(!isOpen)}

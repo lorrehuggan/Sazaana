@@ -7,7 +7,7 @@ type Props = {};
 
 const Header = (props: Props) => {
   return (
-    <header className="mx-auto flex h-14 w-[95%] items-center justify-between lg:h-20 xl:w-[50%]">
+    <header className="canvas-width mx-auto flex h-14 items-center justify-between lg:h-20 ">
       <div className="flex items-center space-x-1">
         <span>
           <HiLightningBolt className="text-2xl text-primary xl:text-5xl" />

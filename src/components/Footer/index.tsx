@@ -4,7 +4,7 @@ type Props = {};
 
 const Footer = (props: Props) => {
   return (
-    <footer className="border-neutral-300 mx-auto flex h-8 w-[95%] items-center justify-between border-t-2 lg:mt-4 xl:h-12 xl:w-[50%]">
+    <footer className="border-neutral-300 canvas-width mx-auto flex h-8 items-center justify-between border-t-2 lg:mt-4 xl:h-12 ">
       <a href="https://lorrehuggan.com">
         <p className="text-xs transition-colors duration-200 ease-in-out hover:text-primary xl:text-base">
           Project by Lorre Huggan

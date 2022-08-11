@@ -11,7 +11,7 @@ export interface IAlbumImageProps {
 export default function AlbumImage({ track }: IAlbumImageProps) {
   return (
     <Link href={track.data.trackURL}>
-      <div className="relative h-16 w-16 cursor-pointer overflow-hidden rounded shadow-md lg:h-20 lg:w-20 xl:h-28 xl:w-28">
+      <div className="relative h-16 w-16 cursor-pointer overflow-hidden rounded shadow-album lg:h-20 lg:w-20 xl:h-28 xl:w-28">
         <div className="absolute top-1/2 left-1/2 z-20 -translate-x-1/2 -translate-y-1/2 transform">
           <FaPlay className="h-6 w-6 active:text-primary xl:hidden" />
         </div>

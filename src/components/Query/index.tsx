@@ -12,7 +12,7 @@ export default function Query(props: IQueryProps) {
   const artistData = useAppSelector((state: RootState) => state.dataState.data);
   const handleReset = () => {};
   return (
-    <div className="mx-auto mt-4 flex h-11 w-[95%] items-center space-x-4 xl:mt-8 xl:w-[50%]">
+    <div className="canvas-width mx-auto mt-4 flex h-11 items-center space-x-4 xl:mt-8 ">
       <div className="flex items-center space-x-3 rounded-md bg-base-300 p-2 shadow-md">
         {artistData && (
           <>

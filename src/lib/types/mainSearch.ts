@@ -182,4 +182,5 @@ export interface Query {
   image: string;
   followers: number;
   url: string;
+  rating: number;
 }

@@ -7,6 +7,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        album: `0px 0px 1.7px rgba(0, 0, 0, 0.069),
+  0px 0px 5.6px rgba(0, 0, 0, 0.101),
+  0px 0px 25px rgba(0, 0, 0, 0.17)`,
+      },
       fontFamily: {
         sans: ["Inter", ...defaultTheme.fontFamily.sans],
         display: ["Bebas Neue", ...defaultTheme.fontFamily.sans],

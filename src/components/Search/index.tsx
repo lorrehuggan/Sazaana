@@ -68,7 +68,7 @@ const Search = (props: Props) => {
 
   return (
     <>
-      <section className="border-b-neutral-300 mx-auto w-[95%] border-b-2 pt-4 xl:w-[50%]">
+      <section className="border-b-neutral-300 canvas-width mx-auto border-b-2 pt-4 ">
         <h1 className=" mb-4 text-5xl font-extrabold tracking-tighter xl:text-8xl">
           {`Discover new music with the help of your favorite artist`}
         </h1>

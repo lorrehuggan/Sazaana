@@ -14,4 +14,7 @@
   .primary-gradient {
     @apply bg-gradient-to-r from-primary to-secondary;
   }
+  .canvas-width {
+    @apply mx-auto w-[95%] sm:w-[640px] md:w-[740px] lg:w-[968px] xl:w-[1280px] 2xl:w-[1280px];
+  }
 }

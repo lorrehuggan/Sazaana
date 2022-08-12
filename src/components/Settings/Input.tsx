@@ -109,8 +109,8 @@ export default function Input({
         className="range range-primary range-xs my-1"
       />
       <div className="flex w-full justify-between">
-        <p className="text-xs">{lowLabel}</p>
-        <p className="text-xs">{highLabel}</p>
+        <p className="text-xs text-accent">{lowLabel}</p>
+        <p className="text-xs text-accent-focus">{highLabel}</p>
       </div>
     </div>
   );

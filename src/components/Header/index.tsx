@@ -4,10 +4,13 @@ import SpotifyLogo from "@/public/assets/spotify-icon.svg";
 import { HiLightningBolt } from "react-icons/hi";
 import { SiSpotify } from "react-icons/si";
 import { AUTH_URL } from "@/lib/api";
+import { User, UserBody, UserClass } from "@/lib/types/User";
 
-type Props = {};
+interface IHeaderProps {
+  user: User | undefined;
+}
 
-const Header = (props: Props) => {
+const Header = ({ user }: IHeaderProps) => {
   return (
     <header className="canvas-width mx-auto flex h-14 items-center justify-between lg:h-20">
       <div className="flex items-center space-x-1">
@@ -20,8 +23,16 @@ const Header = (props: Props) => {
       </div>
       <a href={AUTH_URL}>
         <div className="flex cursor-pointer items-center space-x-2 rounded-lg bg-base-300 p-2 shadow-md transition-shadow duration-200 ease-in-out md:hover:shadow-lg">
-          <span className="text-sm font-bold">Connect</span>
-          <SiSpotify className="text-2xl text-[#17D860]" />
+          {user ? (
+            <span className="text-sm font-bold text-primary">
+              {user.user.body.display_name}
+            </span>
+          ) : (
+            <>
+              <span className="text-sm font-bold">Connect</span>
+              <SiSpotify className="text-2xl text-[#17D860]" />
+            </>
+          )}
         </div>
       </a>
     </header>

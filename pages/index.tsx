@@ -8,9 +8,16 @@ import SignIn from "@/components/SignIn";
 import Tracklist from "@/components/Tracklist";
 import { useAppSelector } from "@/lib/Redux/hooks";
 import { RootState } from "@/lib/Redux/store";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 
 export default function Home() {
   const trackData = useAppSelector((state: RootState) => state.dataState.data);
+  const router = useRouter();
+
+  useEffect(() => {
+    console.log(router.query.code);
+  }, []);
   return (
     <>
       <Header />

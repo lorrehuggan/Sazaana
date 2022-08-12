@@ -10,7 +10,7 @@ export default function Title({ track }: ITitleProps) {
   return (
     <div className="flex-1 overflow-x-hidden">
       <Link href={track.data.trackURL}>
-        <p className="cursor-pointer truncate text-clip text-sm font-bold text-primary lg:text-lg">
+        <p className="color-transition cursor-pointer truncate text-clip text-sm font-bold text-primary lg:text-lg lg:hover:text-secondary">
           {track.data.name.split("(")[0]}
         </p>
       </Link>

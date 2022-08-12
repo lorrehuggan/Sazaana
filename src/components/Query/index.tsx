@@ -12,7 +12,7 @@ export default function Query(props: IQueryProps) {
   const artistData = useAppSelector((state: RootState) => state.dataState.data);
   const handleReset = () => {};
   return (
-    <div className="canvas-width mx-auto mt-4 flex h-11 items-center space-x-4 xl:mt-8 ">
+    <div className="canvas-width mx-auto mt-4 flex  items-center space-x-4 xl:mt-8 ">
       <div className="flex items-center space-x-3 rounded-md bg-base-300 p-2 shadow-md">
         {artistData && (
           <>
@@ -30,14 +30,14 @@ export default function Query(props: IQueryProps) {
                 {artistData[0].query.name}
               </p>
               <div className="flex items-center space-x-1">
-                <span className="text-xs xl:text-base ">
+                <span className="text-xs ">
                   {intToString(artistData[0].query.followers)}
                 </span>
                 <span className="text-xs">FOLLOWERS</span>
               </div>
             </div>
             <button onClick={handleReset}>
-              <AiOutlineClose className="text-3xl" />
+              <AiOutlineClose className="color-transition text-3xl lg:hover:text-accent" />
             </button>
           </>
         )}

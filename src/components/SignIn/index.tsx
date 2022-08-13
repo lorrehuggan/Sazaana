@@ -1,8 +1,11 @@
+import { useAppSelector } from "@/lib/Redux/hooks";
+import { RootState } from "@/lib/Redux/store";
 import * as React from "react";
 
 export interface ISignInProps {}
 
 export default function SignIn(props: ISignInProps) {
+  const user = useAppSelector((state: RootState) => state.userState.user);
   return (
     <div className="mt-6 rounded-md bg-base-300 p-3 shadow-lg lg:mt-0 lg:w-full">
       <h3 className="border-b-[1px] font-bold text-primary lg:text-lg">

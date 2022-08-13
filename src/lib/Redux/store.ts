@@ -5,6 +5,7 @@ import dataStateReducer from "./reducers/dataReducer";
 import searchStateReducer from "./reducers/SearchReducer";
 import playingStateReducer from "./reducers/playingStateReducer";
 import trackSettingsReducer from "./reducers/trackSettingsReducer";
+import userStateReducer from "./reducers/userReducer";
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     playingState: playingStateReducer,
     searchState: searchStateReducer,
     trackSettingsState: trackSettingsReducer,
+    userState: userStateReducer,
   },
 });
 

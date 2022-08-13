@@ -15,9 +15,12 @@
     @apply bg-gradient-to-r from-primary to-secondary;
   }
   .canvas-width {
-    @apply mx-auto w-[95%] sm:w-[640px] md:w-[740px] lg:w-[968px] xl:w-[1280px] 2xl:w-[1280px];
+    @apply mx-auto w-[95%] sm:w-[640px] md:w-[740px] lg:w-[968px] xl:w-[1180px] 2xl:w-[1280px];
   }
   .color-transition {
     @apply transition-colors duration-200 ease-in-out;
+  }
+  .transform-transition {
+    @apply transition-transform duration-200 ease-in-out;
   }
 }

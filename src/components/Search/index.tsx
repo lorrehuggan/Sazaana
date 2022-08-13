@@ -8,6 +8,7 @@ import ArtistSearchResults from "./Artist";
 import { setAppState } from "@/lib/Redux/reducers/appStateReducer";
 import { RootState } from "@/lib/Redux/store";
 import Loading from "./Loading";
+import UseAppReset from "@/lib/hooks/useResetApp";
 
 type Props = {};
 
@@ -31,6 +32,7 @@ const fetcher = async (id: string, state: string) => {
 };
 
 const Search = (props: Props) => {
+  const { resetApp } = UseAppReset();
   const [value, setValue] = useState("");
   const [enabled, setEnabled] = useState(false);
   const [state, setState] = useState("artist");
@@ -82,7 +84,9 @@ const Search = (props: Props) => {
             type="text"
             placeholder={`Search By ${enabled ? "Track" : "Artist"}`}
           />
-          <span className="text-xs">Reset</span>
+          <span onClick={resetApp} className="cursor-pointer text-xs">
+            Reset
+          </span>
         </div>
       </section>
       {/* these need be taken care of in the near future */}

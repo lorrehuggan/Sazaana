@@ -66,13 +66,13 @@ export default function ArtistSearchResults({
 
   return (
     <div className="dropdown-open ">
-      <div className="dropdown-content menu mx-auto  max-h-56 w-[95%] space-y-3 overflow-y-scroll rounded-b-xl bg-base-300 p-2 py-2 text-neutral shadow-lg xl:w-[50%]">
+      <div className="dropdown-content menu mx-auto  max-h-56 w-[95%] space-y-3 overflow-y-scroll rounded-b-xl bg-neutral p-2 py-2 text-neutral shadow-lg xl:w-[50%]">
         {artists?.data.map((artist, i) => {
           return (
             <div
               onClick={() => handleSearch(artist.id, artist.name)}
               key={i}
-              className="flex cursor-pointer items-center space-x-2 transition-all duration-200 ease-in-out hover:bg-pink-300"
+              className="group flex cursor-pointer items-center space-x-2 rounded-md p-2 transition-all duration-200 ease-in-out hover:bg-base-300"
             >
               <div className="relative h-12 w-12 overflow-hidden rounded-xl">
                 <Image
@@ -82,7 +82,9 @@ export default function ArtistSearchResults({
                   objectFit="cover"
                 />
               </div>
-              <p className="text-sm font-bold text-white">{artist.name}</p>
+              <p className="color-transition text-sm font-bold text-white group-hover:text-neutral">
+                {artist.name}
+              </p>
             </div>
           );
         })}

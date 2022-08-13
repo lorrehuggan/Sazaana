@@ -1,16 +1,16 @@
+import UseAppReset from "@/lib/hooks/useResetApp";
 import { useAppSelector } from "@/lib/Redux/hooks";
 import { RootState } from "@/lib/Redux/store";
 import { intToString } from "@/lib/utils";
 import Image from "next/image";
 import * as React from "react";
-import { AiOutlineClose, AiOutlineUser } from "react-icons/ai";
-import { FaUserAlt } from "react-icons/fa";
+import { AiOutlineClose } from "react-icons/ai";
 
 export interface IQueryProps {}
 
 export default function Query(props: IQueryProps) {
   const artistData = useAppSelector((state: RootState) => state.dataState.data);
-  const handleReset = () => {};
+  const { resetApp } = UseAppReset();
   return (
     <div className="canvas-width mx-auto mt-4 flex  items-center space-x-4 xl:mt-8 ">
       <div className="flex items-center space-x-3 rounded-md bg-base-300 p-2 shadow-md">
@@ -36,7 +36,7 @@ export default function Query(props: IQueryProps) {
                 <span className="text-xs">FOLLOWERS</span>
               </div>
             </div>
-            <button onClick={handleReset}>
+            <button onClick={resetApp}>
               <AiOutlineClose className="color-transition text-3xl lg:hover:text-accent" />
             </button>
           </>

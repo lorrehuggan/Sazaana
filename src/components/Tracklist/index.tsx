@@ -105,7 +105,7 @@ export default function Tracklist(props: ITracklistProps) {
               <span className="text-xs">
                 {convertMsToMinutesSeconds(track.data.duration)}
               </span>
-              <div className="absolute bottom-0 right-0 top-[80%] left-1/2  -z-20  h-[1px] w-full -translate-x-1/2 -translate-y-1/2 transform bg-white/30" />
+              <div className="absolute right-0 top-[80%] -z-10 h-[1px] w-full  bg-black/20" />
             </div>
           );
         })}

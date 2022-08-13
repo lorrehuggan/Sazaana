@@ -14,9 +14,7 @@ export default function Settings(props: ISettingsProps) {
   );
 
   return (
-    <div
-      className={`mt-4 cursor-pointer rounded-md bg-base-300 p-3 shadow-lg lg:w-full`}
-    >
+    <div className="mt-4 cursor-pointer rounded-md bg-base-300 p-3 shadow-lg lg:w-full">
       <div
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center justify-between"

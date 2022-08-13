@@ -14,7 +14,7 @@ const dataStateSlice = createSlice({
   name: "dataState",
   initialState,
   reducers: {
-    setDataState: (state, action: PayloadAction<Main[]>) => {
+    setDataState: (state, action: PayloadAction<Main[] | null>) => {
       state.data = action.payload;
     },
   },

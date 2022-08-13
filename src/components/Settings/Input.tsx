@@ -97,8 +97,8 @@ export default function Input({
     }
   };
   return (
-    <div className="mt-2 border-b border-white/20 py-2">
-      <p className="mb-1 text-xs uppercase text-primary">{category}</p>
+    <div className="mt-2 border-b border-base-content/30 py-2">
+      <p className="mb-1 text-xs uppercase">{category}</p>
       <input
         onChange={(e) => update(e)}
         type="range"
@@ -109,8 +109,8 @@ export default function Input({
         className="range range-primary range-xs my-1"
       />
       <div className="flex w-full justify-between">
-        <p className="text-xs text-accent">{lowLabel}</p>
-        <p className="text-xs text-accent-focus">{highLabel}</p>
+        <p className="text-xs ">{lowLabel}</p>
+        <p className="text-xs ">{highLabel}</p>
       </div>
     </div>
   );

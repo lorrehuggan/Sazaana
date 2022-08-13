@@ -91,7 +91,7 @@ module.exports = {
     },
   },
   daisyui: {
-    themes: ["dracula"],
+    themes: ["dracula", "cupcake"],
   },
   plugins: [require("daisyui")],
 };

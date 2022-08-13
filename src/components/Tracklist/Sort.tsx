@@ -80,8 +80,10 @@ export default function Sort({
       <div className="flex items-center space-x-1">
         <div
           onClick={() => filteredBy("danceability")}
-          className={`flex cursor-pointer items-center space-x-1 border border-white p-1 text-xs uppercase ${
-            filterBy === "danceability" ? "border-accent text-accent" : null
+          className={`flex cursor-pointer items-center space-x-1 border border-base-content p-1 text-xs uppercase ${
+            filterBy === "danceability"
+              ? "border-primary bg-primary text-base-content"
+              : null
           }`}
         >
           {!sortByDance && filterBy === "danceability" ? (
@@ -93,8 +95,10 @@ export default function Sort({
         </div>
         <div
           onClick={() => filteredBy("energy")}
-          className={`flex cursor-pointer items-center space-x-1 border border-white p-1 text-xs uppercase ${
-            filterBy === "energy" ? "border-accent text-accent" : null
+          className={`flex cursor-pointer items-center space-x-1 border border-base-content p-1 text-xs uppercase ${
+            filterBy === "energy"
+              ? "border-primary bg-primary text-base-content"
+              : null
           }`}
         >
           {!sortByEnergy && filterBy === "energy" ? (
@@ -106,8 +110,10 @@ export default function Sort({
         </div>
         <div
           onClick={() => filteredBy("tempo")}
-          className={`flex cursor-pointer items-center space-x-1 border border-white p-1 text-xs uppercase ${
-            filterBy === "tempo" ? "border-accent text-accent" : null
+          className={`flex cursor-pointer items-center space-x-1 border border-base-content p-1 text-xs uppercase ${
+            filterBy === "tempo"
+              ? "border-primary bg-primary text-base-content"
+              : null
           }`}
         >
           {!sortByTempo && filterBy === "tempo" ? (

@@ -13,7 +13,7 @@ export default function Query(props: IQueryProps) {
   const { resetApp } = UseAppReset();
   return (
     <div className="canvas-width mx-auto mt-4 flex  items-center space-x-4 xl:mt-8 ">
-      <div className="flex items-center space-x-3 rounded-md bg-base-300 p-2 shadow-md">
+      <div className="flex items-center space-x-3 rounded-md bg-base-200 p-2 shadow-md">
         {artistData && (
           <>
             <div className="relative h-11 w-11 overflow-hidden rounded-md">

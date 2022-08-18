@@ -5,12 +5,21 @@ import { HiLightningBolt } from "react-icons/hi";
 import { SiSpotify } from "react-icons/si";
 import { AUTH_URL } from "@/lib/api";
 import { User, UserBody, UserClass } from "@/lib/types/User";
+import UseAppReset from "@/lib/hooks/useResetApp";
+import { useAppDispatch, useAppSelector } from "@/lib/Redux/hooks";
+import { setUserState } from "@/lib/Redux/reducers/userReducer";
+import { RootState } from "@/lib/Redux/store";
 
-interface IHeaderProps {
-  user: User | undefined;
-}
+const Header = () => {
+  const { resetApp } = UseAppReset();
+  const dispatch = useAppDispatch();
+  const userData = useAppSelector((state: RootState) => state.userState.user);
 
-const Header = ({ user }: IHeaderProps) => {
+  const handleLogout = () => {
+    resetApp();
+    dispatch(setUserState(null));
+  };
+
   return (
     <header className="canvas-width mx-auto flex h-14 items-center justify-between lg:h-20">
       <div className="flex items-center space-x-1">
@@ -21,20 +30,23 @@ const Header = ({ user }: IHeaderProps) => {
           Sazaana
         </span>
       </div>
-      <a href={AUTH_URL}>
-        <div className="flex cursor-pointer items-center space-x-2 rounded-lg bg-base-300 p-2 shadow-md transition-shadow duration-200 ease-in-out md:hover:shadow-lg">
-          {user ? (
-            <span className="text-sm font-bold text-primary">
-              {user.user.body.display_name}
+      <div className="flex cursor-pointer items-center space-x-2 rounded-lg bg-base-300 p-2 shadow-md transition-shadow duration-200 ease-in-out md:hover:shadow-lg">
+        {userData ? (
+          <>
+            <span
+              onClick={handleLogout}
+              className="text-sm font-bold text-primary"
+            >
+              Logout
             </span>
-          ) : (
-            <>
-              <span className="text-sm font-bold">Connect</span>
-              <SiSpotify className="text-2xl text-[#17D860]" />
-            </>
-          )}
-        </div>
-      </a>
+          </>
+        ) : (
+          <a className="flex items-center space-x-2" href={AUTH_URL}>
+            <span className="text-sm font-bold">Connect</span>
+            <SiSpotify className="text-2xl text-[#17D860]" />
+          </a>
+        )}
+      </div>
     </header>
   );
 };

@@ -43,6 +43,8 @@ export default function Preview({ track }: IPreviewProps) {
     },
     onend: () => {
       stop();
+      setPlaying(false);
+      dispatch(setPlayingState(false));
     },
   });
 

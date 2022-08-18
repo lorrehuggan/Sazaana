@@ -29,6 +29,7 @@ export interface Data {
   popularity: number;
   explicit: boolean;
   duration: number;
+  trackURI: string;
 }
 
 export interface Artist {

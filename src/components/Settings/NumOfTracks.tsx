@@ -45,7 +45,7 @@ export default function NumberOfTracks(props: INumberOfTracksProps) {
 
   return (
     <div className="mt-4 border-b-[1px] py-1">
-      <select className=" w-full bg-base-300 p-0 text-xs">
+      <select className=" w-full bg-base-100 p-0 text-xs">
         <option disabled selected>
           Max Number Of Tracks
         </option>

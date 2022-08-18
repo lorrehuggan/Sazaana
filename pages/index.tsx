@@ -16,6 +16,8 @@ import { useState } from "react";
 import { User } from "@/lib/types/User";
 import UserTopArtists from "@/components/User/TopArtists";
 import { setUserState } from "@/lib/Redux/reducers/userReducer";
+import Head from "next/head";
+import CreatePlaylist from "@/components/CreatePlaylist";
 
 const fetcher = async (code: string) => {
   const response = await fetch(`${CALLBACK_URL}?code=${code}`, {
@@ -43,6 +45,7 @@ export default function Home() {
     refetchOnWindowFocus: false,
   });
   const trackData = useAppSelector((state: RootState) => state.dataState.data);
+  const userData = useAppSelector((state: RootState) => state.userState.user);
   const router = useRouter();
 
   useEffect(() => {
@@ -60,17 +63,20 @@ export default function Home() {
 
   return (
     <>
-      <Header user={user} />
+      <Head>
+        <title>Sazaana</title>
+      </Head>
+      <Header />
       <Main>
         <Search />
-        {user && <UserTopArtists user={user} />}
+        {userData && <UserTopArtists user={userData} />}
         {trackData && (
           <>
             <Query />
             <section className="canvas-width lg:relative lg:mx-auto lg:mt-8 lg:flex lg:space-x-4 ">
-              <div>
+              <div className="lg:w-1/3">
                 <div className="lg:sticky lg:top-5">
-                  <SignIn />
+                  {userData ? <CreatePlaylist /> : <SignIn />}
                   <Settings />
                 </div>
               </div>

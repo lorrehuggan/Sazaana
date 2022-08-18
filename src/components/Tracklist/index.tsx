@@ -10,6 +10,7 @@ import { Main } from "@/lib/types/mainSearch";
 import Sort from "./Sort";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
 import { setTrackSettingsState } from "@/lib/Redux/reducers/trackSettingsReducer";
+import { setTracklistState } from "@/lib/Redux/reducers/tracklistReducer";
 
 export interface ITracklistProps {}
 
@@ -21,6 +22,10 @@ export default function Tracklist(props: ITracklistProps) {
   const [sortByDance, setSortByDance] = React.useState(true);
   const [sortByEnergy, setSortByEnergy] = React.useState(true);
   const [sortByTempo, setSortByTempo] = React.useState(true);
+  const tracklistState = useAppSelector(
+    (state: RootState) => state.tracklistState
+  );
+
   const dispatch = useAppDispatch();
   const {
     maxNumOfTracks,
@@ -46,6 +51,20 @@ export default function Tracklist(props: ITracklistProps) {
       acousticness > 0 ||
       valence > 0
     ) {
+      dispatch(
+        setTracklistState(
+          trackData.slice(0, maxNumOfTracks).filter((track) => {
+            return (
+              track.data.popularity >= popularity &&
+              track.features.energy >= energy &&
+              track.features.tempo >= tempo &&
+              track.features.danceability >= danceability &&
+              track.features.acousticness >= acousticness &&
+              track.features.valence >= valence
+            );
+          })
+        )
+      );
       setShuffle(
         trackData.slice(0, maxNumOfTracks).filter((track) => {
           return (
@@ -59,6 +78,7 @@ export default function Tracklist(props: ITracklistProps) {
         })
       );
     } else {
+      dispatch(setTracklistState(trackData.slice(0, maxNumOfTracks)));
       setShuffle(trackData.slice(0, maxNumOfTracks));
     }
   }, [

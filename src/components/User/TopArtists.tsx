@@ -11,6 +11,7 @@ import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import * as React from "react";
 import { MAIN_ENDPOINT } from "@/lib/api";
+import UseAppReset from "@/lib/hooks/useResetApp";
 
 export interface IUserTopArtistsProps {
   user: User;
@@ -34,6 +35,7 @@ const fetcher = async (id: string) => {
 };
 
 export default function UserTopArtists({ user }: IUserTopArtistsProps) {
+  const { resetApp } = UseAppReset();
   const [id, setId] = React.useState("");
   const { data, isLoading, isError } = useQuery<MainResponse>(
     ["userArtistSearch", id],
@@ -46,6 +48,7 @@ export default function UserTopArtists({ user }: IUserTopArtistsProps) {
   const dispatch = useAppDispatch();
 
   const handleSearch = (id: string) => {
+    resetApp();
     setId(id);
   };
 
@@ -55,6 +58,10 @@ export default function UserTopArtists({ user }: IUserTopArtistsProps) {
       dispatch(setAppState(""));
     }
   }, [data]);
+
+  if (isLoading) {
+    <div>loading...</div>;
+  }
 
   return (
     <section className="canvas-width mt-2 cursor-pointer">

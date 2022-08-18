@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../lib/Redux/hooks";
 import { setSearchMode } from "../../lib/Redux/reducers/searchMode";
 import { ArtistResponse } from "@/lib/types/PreSearch";
 import { useQuery } from "@tanstack/react-query";
-import ArtistSearchResults from "./Artist";
+import ArtistSearchResults from "./Dropdown";
 import { setAppState } from "@/lib/Redux/reducers/appStateReducer";
 import { RootState } from "@/lib/Redux/store";
 import Loading from "./Loading";
@@ -72,7 +72,7 @@ const Search = (props: Props) => {
     <>
       <section className="border-b-neutral-300 canvas-width mx-auto border-b-2 pt-4 ">
         <h1 className=" mb-4 text-5xl font-extrabold tracking-tighter xl:text-8xl">
-          {`Discover new music with the help of your favorite artist`}
+          {`Discover new music with the help of your favorite artists`}
         </h1>
         <div className="flex items-center">
           <input
@@ -84,7 +84,10 @@ const Search = (props: Props) => {
             type="text"
             placeholder={`Search By ${enabled ? "Track" : "Artist"}`}
           />
-          <span onClick={resetApp} className="cursor-pointer text-xs">
+          <span
+            onClick={resetApp}
+            className="color-transition cursor-pointer text-xs lg:text-base lg:hover:text-primary"
+          >
             Reset
           </span>
         </div>

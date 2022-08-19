@@ -74,7 +74,7 @@ export default function Home() {
           <>
             <Query />
             <section className="canvas-width lg:relative lg:mx-auto lg:mt-8 lg:flex lg:space-x-4 ">
-              <div className="lg:w-1/3">
+              <div className="lg:w-[calc(968px/3)]">
                 <div className="lg:sticky lg:top-5">
                   {userData ? <CreatePlaylist /> : <SignIn />}
                   <Settings />

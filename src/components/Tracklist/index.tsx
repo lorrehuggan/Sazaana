@@ -18,15 +18,14 @@ export default function Tracklist(props: ITracklistProps) {
   const [filterBy, setFilterBy] = React.useState<string | null>(null);
   const trackData = useAppSelector((state: RootState) => state.dataState.data)!;
   const [shuffle, setShuffle] = React.useState<Main[]>(trackData);
-  const [tracklistDuration, setTracklistDuration] = React.useState<number>(0);
   const [sortByDance, setSortByDance] = React.useState(true);
   const [sortByEnergy, setSortByEnergy] = React.useState(true);
   const [sortByTempo, setSortByTempo] = React.useState(true);
   const tracklistState = useAppSelector(
-    (state: RootState) => state.tracklistState
-  );
-
+    (state: RootState) => state.tracklistState.tracklist
+  )!;
   const dispatch = useAppDispatch();
+
   const {
     maxNumOfTracks,
     popularity,
@@ -92,9 +91,9 @@ export default function Tracklist(props: ITracklistProps) {
   ]);
 
   return (
-    <section className="mx-auto my-6 lg:my-0 lg:flex-1">
+    <section className="mx-auto my-6 lg:my-0 lg:w-[calc(968px/3*2)] lg:flex-1">
       <Heading />
-      <Sort
+      {/* <Sort
         setFilterBy={setFilterBy}
         sortByDance={sortByDance}
         filterBy={filterBy}
@@ -105,13 +104,13 @@ export default function Tracklist(props: ITracklistProps) {
         shuffle={shuffle}
         sortByEnergy={sortByEnergy}
         sortByTempo={sortByTempo}
-      />
+      /> */}
 
       <div ref={parent}>
-        {shuffle.length === 0 && (
+        {tracklistState.length === 0 && (
           <p className="mt-2 text-sm uppercase">No tracks available</p>
         )}
-        {shuffle.map((track, i) => {
+        {tracklistState.map((track, i) => {
           return (
             <div
               key={track.data.id}

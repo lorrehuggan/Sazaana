@@ -10,6 +10,7 @@ import { setSearchState } from "@/lib/Redux/reducers/SearchReducer";
 import { RootState } from "@/lib/Redux/store";
 import { setAppState } from "@/lib/Redux/reducers/appStateReducer";
 import { randomizeArray } from "@/lib/utils";
+import { setTracklistState } from "@/lib/Redux/reducers/tracklistReducer";
 
 export interface IArtistSearchProps {
   artists: ArtistResponse | undefined;
@@ -55,6 +56,7 @@ export default function ArtistSearchResults({
   useEffect(() => {
     if (data) {
       dispatch(setDataState(randomizeArray([...data.data])));
+      dispatch(setTracklistState(randomizeArray([...data.data])));
       dispatch(setAppState(""));
     }
   }, [data]);
@@ -65,8 +67,8 @@ export default function ArtistSearchResults({
   };
 
   return (
-    <div className="dropdown-open ">
-      <div className="dropdown-content menu mx-auto  max-h-56 w-[95%] space-y-3 overflow-y-scroll rounded-b-xl bg-base-100  py-2 text-neutral shadow-lg xl:w-[50%]">
+    <div className="dropdown-open">
+      <div className="canvas-width dropdown-content menu  relative  mx-auto max-h-56 space-y-3 overflow-y-scroll  rounded-b-xl bg-base-100 py-2 text-neutral shadow-lg">
         {artists?.data.map((artist, i) => {
           return (
             <div

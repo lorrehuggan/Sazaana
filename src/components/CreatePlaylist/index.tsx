@@ -2,6 +2,7 @@ import { useAppSelector } from "@/lib/Redux/hooks";
 import { RootState } from "@/lib/Redux/store";
 import * as React from "react";
 import { useQuery } from "@tanstack/react-query";
+import { CREATE_PLAYLIST_URL } from "@/lib/api";
 
 export interface ICreatePlaylistProps {}
 
@@ -12,7 +13,7 @@ const fetcher = async (
   access: string,
   tracks: string[]
 ) => {
-  const response = await fetch(``, {
+  const response = await fetch(CREATE_PLAYLIST_URL, {
     method: "POST",
     headers: {
       Authorization: "",
@@ -34,14 +35,17 @@ export default function CreatePlaylist(props: ICreatePlaylistProps) {
   const artistData = useAppSelector(
     (state: RootState) => state.dataState.data!
   );
+  const tracklistState = useAppSelector(
+    (state: RootState) => state.tracklistState.tracklist
+  )!;
   const userData = useAppSelector((state: RootState) => state.userState.user);
-  const trackList = useAppSelector((state: RootState) => state.dataState.data);
   const [playlistName, setPlaylistName] = React.useState<string>(
-    `Sazaana Mix: ${artistData[0].query.name}`
+    `Sazaana Mix: ${tracklistState[0].query.name}`
   );
   const [isPublic, setIsPublic] = React.useState<boolean>(true);
   const [isCollaborative, setIsCollaborative] = React.useState<boolean>(true);
   const [create, setCreate] = React.useState<boolean>(false);
+  const [successMessage, setSuccessMessage] = React.useState<string>("");
 
   const { data, isLoading, isError } = useQuery(
     ["create-playlist", create],
@@ -51,12 +55,14 @@ export default function CreatePlaylist(props: ICreatePlaylistProps) {
         isCollaborative,
         isPublic,
         userData?.access_token!,
-        trackList?.map((track) => {
+        tracklistState?.map((track) => {
           return track.data.trackURI;
         })!
       ),
     {
       enabled: create,
+      retry: false,
+      refetchOnWindowFocus: false,
     }
   );
 
@@ -66,7 +72,11 @@ export default function CreatePlaylist(props: ICreatePlaylistProps) {
 
   React.useEffect(() => {
     if (data) {
-      console.log(data);
+      setCreate(false);
+      setSuccessMessage(`Playlist ${playlistName} created`);
+      setTimeout(() => {
+        setSuccessMessage("");
+      }, 4000);
     }
   }, [data]);
 
@@ -106,6 +116,9 @@ export default function CreatePlaylist(props: ICreatePlaylistProps) {
       >
         Save Playlist to Spotify
       </button>
+      {successMessage && (
+        <div className="text-sm text-success-content">{successMessage}</div>
+      )}
     </div>
   );
 }

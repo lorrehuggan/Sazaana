@@ -12,6 +12,7 @@ import Image from "next/image";
 import * as React from "react";
 import { MAIN_ENDPOINT } from "@/lib/api";
 import UseAppReset from "@/lib/hooks/useResetApp";
+import { setTracklistState } from "@/lib/Redux/reducers/tracklistReducer";
 
 export interface IUserTopArtistsProps {
   user: User;
@@ -42,6 +43,7 @@ export default function UserTopArtists({ user }: IUserTopArtistsProps) {
     () => fetcher(id),
     {
       enabled: id.length > 0,
+      refetchOnWindowFocus: false,
     }
   );
 
@@ -55,6 +57,7 @@ export default function UserTopArtists({ user }: IUserTopArtistsProps) {
   React.useEffect(() => {
     if (data) {
       dispatch(setDataState(randomizeArray([...data.data])));
+      dispatch(setTracklistState(randomizeArray([...data.data])));
       dispatch(setAppState(""));
     }
   }, [data]);

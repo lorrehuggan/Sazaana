@@ -15,7 +15,7 @@ export default function Title({ track }: ITitleProps) {
         </span>
       </Link>
       <div className="flex flex-nowrap">
-        {track.data.artist.map((artist, i) => {
+        {track.data.artist.slice(0, 20).map((artist, i) => {
           return (
             <Link key={i} href={artist.external_urls.spotify}>
               <span className="mr-1 cursor-pointer truncate text-clip text-xs transition-colors duration-200 ease-in-out lg:text-sm lg:hover:text-accent">

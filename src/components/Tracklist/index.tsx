@@ -108,7 +108,11 @@ export default function Tracklist(props: ITracklistProps) {
 
       <div ref={parent}>
         {tracklistState.length === 0 && (
-          <p className="mt-2 text-sm uppercase">No tracks available</p>
+          <div className="mt-6 flex h-full w-full items-center justify-center">
+            <p className="text-2xl font-extrabold text-primary">
+              No Tracks Available...
+            </p>
+          </div>
         )}
         {tracklistState.map((track, i) => {
           return (

@@ -14,6 +14,7 @@ export const PRE_ENDPOINT =
 export const USER_ENDPOINT = BASE + "stor/get-user";
 export const TEST_ENDPOINT = BASE + "main/test";
 export const LOGIN_ENDPOINT = BASE + "main/login";
+export const REFRESH_ENDPOINT = BASE + "main/refresh";
 
 const REDIRECT_URL = "http://localhost:3000/";
 

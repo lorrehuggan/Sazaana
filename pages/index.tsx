@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import Main from "@/components/Main";
@@ -8,58 +9,27 @@ import SignIn from "@/components/SignIn";
 import Tracklist from "@/components/Tracklist";
 import { useAppDispatch, useAppSelector } from "@/lib/Redux/hooks";
 import { RootState } from "@/lib/Redux/store";
-import { useRouter } from "next/router";
-import { useEffect } from "react";
-import { CALLBACK_URL } from "@/lib/api";
-import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
-import { User } from "@/lib/types/User";
 import UserTopArtists from "@/components/User/TopArtists";
-import { setUserState } from "@/lib/Redux/reducers/userReducer";
 import Head from "next/head";
 import CreatePlaylist from "@/components/CreatePlaylist";
-
-const fetcher = async (code: string) => {
-  const response = await fetch(`${CALLBACK_URL}?code=${code}`, {
-    headers: {
-      Authorization: "",
-    },
-  });
-
-  if (!response.ok) {
-    throw new Error("Something went wrong");
-  }
-  return response.json();
-};
+import UseAuth from "@/lib/hooks/useAuth";
+import { setAuthState } from "@/lib/Redux/reducers/authReducer";
 
 export default function Home() {
-  const dispatch = useAppDispatch();
-  const [code, setCode] = useState("");
-  const {
-    data: user,
-    isLoading,
-    isError,
-  } = useQuery<User>(["getUser", code], () => fetcher(code), {
-    enabled: code.length > 1,
-    retry: false,
-    refetchOnWindowFocus: false,
-  });
+  const { access_token, refresh_token } = UseAuth();
   const trackData = useAppSelector((state: RootState) => state.dataState.data);
   const userData = useAppSelector((state: RootState) => state.userState.user);
-  const router = useRouter();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (router.query.code as string) {
-      setCode(router.query.code as string);
-      router.push("/");
-    }
-  }, [router.query.code]);
-
-  useEffect(() => {
-    if (user) {
-      dispatch(setUserState(user));
-    }
-  }, [user]);
+    if (!access_token || !refresh_token) return;
+    dispatch(
+      setAuthState({
+        access_token,
+        refresh_token,
+      })
+    );
+  }, [access_token]);
 
   return (
     <>

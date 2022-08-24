@@ -6,6 +6,11 @@ import { CREATE_PLAYLIST_URL } from "@/lib/api";
 
 export interface ICreatePlaylistProps {}
 
+interface ICreatePlaylist {
+  error: "";
+  data: { snapshot_id: string } | null;
+}
+
 const fetcher = async (
   playlistName: string,
   collaborative: boolean,
@@ -40,14 +45,14 @@ export default function CreatePlaylist(props: ICreatePlaylistProps) {
   )!;
   const userData = useAppSelector((state: RootState) => state.userState.user);
   const [playlistName, setPlaylistName] = React.useState<string>(
-    `Sazaana Mix: ${tracklistState[0].query.name}`
+    tracklistState[0] ? `Sazaana Mix: ${tracklistState[0].query.name}` : ""
   );
   const [isPublic, setIsPublic] = React.useState<boolean>(true);
   const [isCollaborative, setIsCollaborative] = React.useState<boolean>(true);
   const [create, setCreate] = React.useState<boolean>(false);
   const [successMessage, setSuccessMessage] = React.useState<string>("");
 
-  const { data, isLoading, isError } = useQuery(
+  const { data, isLoading, isError } = useQuery<ICreatePlaylist>(
     ["create-playlist", create],
     () =>
       fetcher(
@@ -67,13 +72,21 @@ export default function CreatePlaylist(props: ICreatePlaylistProps) {
   );
 
   const handleCreatePlaylist = () => {
+    if (tracklistState.length === 0) return;
     setCreate(true);
   };
 
   React.useEffect(() => {
-    if (data) {
+    if (data?.data?.snapshot_id) {
       setCreate(false);
-      setSuccessMessage(`Playlist ${playlistName} created`);
+      setSuccessMessage(`Playlist ${playlistName} added to Spotify`);
+      setTimeout(() => {
+        setSuccessMessage("");
+      }, 4000);
+    }
+    if (data?.error) {
+      setCreate(false);
+      setSuccessMessage("Something went wrong");
       setTimeout(() => {
         setSuccessMessage("");
       }, 4000);
@@ -87,7 +100,11 @@ export default function CreatePlaylist(props: ICreatePlaylistProps) {
         <input
           className=" bg-base-100 focus:outline-none"
           type="text"
-          placeholder={`Sazaana Mix: ${artistData[0].query.name}`}
+          placeholder={
+            tracklistState[0]
+              ? `Sazaana Mix: ${tracklistState[0].query.name}`
+              : "..."
+          }
           value={playlistName}
           onChange={(e) => setPlaylistName(e.target.value)}
         />
@@ -101,15 +118,7 @@ export default function CreatePlaylist(props: ICreatePlaylistProps) {
           onClick={() => setIsPublic(!isPublic)}
         />
       </div>
-      <div className="flex items-center justify-between space-y-1 border-b-[1px] border-black/20 p-1">
-        <label className="text-sm">Collaborative</label>
-        <input
-          type="checkbox"
-          className="toggle"
-          checked={isCollaborative}
-          onClick={() => setIsCollaborative(!isCollaborative)}
-        />
-      </div>
+
       <button
         onClick={handleCreatePlaylist}
         className="primary-gradient mt-3 w-full rounded-md p-2 text-xs font-bold text-base-300 active:scale-95 lg:text-sm"
@@ -117,7 +126,7 @@ export default function CreatePlaylist(props: ICreatePlaylistProps) {
         Save Playlist to Spotify
       </button>
       {successMessage && (
-        <div className="text-sm text-success-content">{successMessage}</div>
+        <div className="text-xs font-bold text-success">{successMessage}</div>
       )}
     </div>
   );

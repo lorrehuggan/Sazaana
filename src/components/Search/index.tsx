@@ -9,27 +9,20 @@ import { setAppState } from "@/lib/Redux/reducers/appStateReducer";
 import { RootState } from "@/lib/Redux/store";
 import Loading from "./Loading";
 import UseAppReset from "@/lib/hooks/useResetApp";
+import { useFetcher } from "@/lib/utils";
 
 type Props = {};
 
 const AUTH_TOKEN = process.env.AUTH_TOKEN as string;
 
-const fetcher = async (id: string, state: string) => {
-  const response = await fetch(
-    `http://localhost:5000/api/main/artist?${state}=${id}`,
-    {
-      headers: {
-        Authorization: AUTH_TOKEN,
-      },
-    }
-  );
-
-  if (!response.ok) {
-    throw new Error("Something went wrong");
-  }
-
-  return response.json();
-};
+const fetch = (id: string, state: string) =>
+  useFetcher({
+    endpoint: `http://localhost:5000/api/main/artist?${state}=${id}`,
+    method: "GET",
+    headers: {
+      Authorization: AUTH_TOKEN,
+    },
+  });
 
 const Search = (props: Props) => {
   const { resetApp } = UseAppReset();
@@ -44,7 +37,7 @@ const Search = (props: Props) => {
     isError,
   } = useQuery<ArtistResponse>(
     ["preSearch", value],
-    () => fetcher(value, state),
+    () => fetch(value, state),
     {
       enabled: appState === "searching" && value.length > 0,
     }

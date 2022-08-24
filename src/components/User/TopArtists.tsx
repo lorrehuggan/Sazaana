@@ -6,7 +6,7 @@ import { RootState } from "@/lib/Redux/store";
 import { MainResponse } from "@/lib/types/mainSearch";
 import { ArtistResponse } from "@/lib/types/PreSearch";
 import { User } from "@/lib/types/User";
-import { randomizeArray } from "@/lib/utils";
+import { randomizeArray, useFetcher } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import * as React from "react";
@@ -18,29 +18,42 @@ export interface IUserTopArtistsProps {
   user: User;
 }
 
-const AUTH_TOKEN =
-  "BQC-Z-uPC6Kz97-S9103cFFbcXdlrYXEaGkW7HBC9qoaAAYycIo8E1bNCuYTVBq4f17rJr-DPLKj2xEOG99mIShPBYmtLyvr33McHulJHtuzlkGaqs";
+// const AUTH_TOKEN =
+//   "BQC-Z-uPC6Kz97-S9103cFFbcXdlrYXEaGkW7HBC9qoaAAYycIo8E1bNCuYTVBq4f17rJr-DPLKj2xEOG99mIShPBYmtLyvr33McHulJHtuzlkGaqs";
 
-const fetcher = async (id: string) => {
-  const response = await fetch(`${MAIN_ENDPOINT}?id=${id}`, {
+// const fetcher = async (id: string) => {
+//   const response = await fetch(`${MAIN_ENDPOINT}?id=${id}`, {
+//     headers: {
+//       Authorization: AUTH_TOKEN,
+//     },
+//   });
+
+//   if (!response.ok) {
+//     throw new Error("Something went wrong");
+//   }
+
+//   return response.json();
+// };
+
+const fetch = (id: string, accessToken: string) =>
+  useFetcher({
+    endpoint: `${MAIN_ENDPOINT}?id=${id}`,
+    method: "POST",
     headers: {
-      Authorization: AUTH_TOKEN,
+      Authorization: "",
+      accessToken,
     },
   });
 
-  if (!response.ok) {
-    throw new Error("Something went wrong");
-  }
-
-  return response.json();
-};
-
 export default function UserTopArtists({ user }: IUserTopArtistsProps) {
   const { resetApp } = UseAppReset();
+  const accessToken = useAppSelector(
+    (state: RootState) => state.authState.access_token
+  );
   const [id, setId] = React.useState("");
   const { data, isLoading, isError } = useQuery<MainResponse>(
     ["userArtistSearch", id],
-    () => fetcher(id),
+    () => fetch(id, accessToken),
     {
       enabled: id.length > 0,
       refetchOnWindowFocus: false,

@@ -49,3 +49,23 @@ export function intToString(num: number): string {
     si[index].s
   );
 }
+
+interface IFetcher<T> {
+  endpoint: string;
+  method: "GET" | "POST" | "PUT" | "DELETE";
+  body?: T;
+  headers?: {};
+}
+
+export const useFetcher = async <T>(args: IFetcher<T>) => {
+  const response = await fetch(args.endpoint, {
+    method: args.method,
+    headers: args.headers,
+    body: JSON.stringify(args.body),
+  });
+
+  if (!response.ok) {
+    throw new Error("Something went wrong");
+  }
+  return response.json();
+};

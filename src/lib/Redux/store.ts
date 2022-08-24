@@ -7,6 +7,7 @@ import playingStateReducer from "./reducers/playingStateReducer";
 import trackSettingsReducer from "./reducers/trackSettingsReducer";
 import userStateReducer from "./reducers/userReducer";
 import tracklistReducer from "./reducers/tracklistReducer";
+import authReducer from "./reducers/authReducer";
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
     trackSettingsState: trackSettingsReducer,
     userState: userStateReducer,
     tracklistState: tracklistReducer,
+    authState: authReducer,
   },
 });
 

@@ -1,5 +1,5 @@
 const DEV = "http://localhost:5000/";
-const PROD = "https://qwanfy-server-production.up.railway.app/";
+const PROD = "https://sazaana-server-production.up.railway.app/";
 const ENV = PROD;
 
 const BASE = `${ENV}api/`;

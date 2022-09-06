@@ -23,13 +23,15 @@ export default function Home() {
 
   useEffect(() => {
     if (!access_token || !refresh_token) return;
+
     dispatch(
       setAuthState({
         access_token,
         refresh_token,
       })
     );
-  }, [access_token]);
+    console.log({ access_token });
+  });
 
   return (
     <>

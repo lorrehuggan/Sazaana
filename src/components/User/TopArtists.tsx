@@ -26,7 +26,7 @@ const fetch = (id: string, accessToken: string) =>
     method: "POST",
     headers: {
       Authorization: AUTH_TOKEN,
-      accessToken,
+      accessToken: accessToken,
     },
   });
 
@@ -48,6 +48,8 @@ export default function UserTopArtists({ user }: IUserTopArtistsProps) {
   const dispatch = useAppDispatch();
 
   const handleSearch = (id: string) => {
+    console.log({ test: accessToken });
+
     resetApp();
     setId(id);
   };

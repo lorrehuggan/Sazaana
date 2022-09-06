@@ -1,5 +1,5 @@
 const DEV = "http://localhost:5000/";
-// const PROD = import.meta.env.VITE_PROD_URL;
+const PROD = "https://qwanfy.herokuapp.com/";
 const ENV = DEV;
 
 const BASE = `${ENV}api/`;
@@ -7,9 +7,8 @@ const BASE = `${ENV}api/`;
 
 //export const MAIN_ENDPOINT = BASE + "main";
 export const MAIN_ENDPOINT = BASE + "main";
-
-export const PRE_ENDPOINT =
-  BASE + "https://qwanfy.herokuapp.com/api/main/pre-search";
+export const PRE_ENDPOINT = BASE + "main/pre-search";
+export const ARTIST_TEST_ENDPOINT = BASE + "main/artist";
 
 export const USER_ENDPOINT = BASE + "stor/get-user";
 export const TEST_ENDPOINT = BASE + "main/test";
@@ -22,3 +21,5 @@ export const AUTH_URL = `https://accounts.spotify.com/authorize?client_id=1a98ca
 
 export const CALLBACK_URL = `${BASE}stor/callback`;
 export const CREATE_PLAYLIST_URL = `${BASE}stor/create-playlist`;
+
+export const AUTH_TOKEN = process.env.AUTH_TOKEN;

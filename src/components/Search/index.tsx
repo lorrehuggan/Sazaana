@@ -10,6 +10,7 @@ import { RootState } from "@/lib/Redux/store";
 import Loading from "./Loading";
 import UseAppReset from "@/lib/hooks/useResetApp";
 import { useFetcher } from "@/lib/utils";
+import { PRE_ENDPOINT } from "@/lib/api";
 
 type Props = {};
 
@@ -17,7 +18,7 @@ const AUTH_TOKEN = process.env.AUTH_TOKEN as string;
 
 const fetch = (id: string, state: string) =>
   useFetcher({
-    endpoint: `http://localhost:5000/api/main/artist?${state}=${id}`,
+    endpoint: `${PRE_ENDPOINT}?artist=${id}`,
     method: "GET",
     headers: {
       Authorization: AUTH_TOKEN,

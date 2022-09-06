@@ -18,29 +18,14 @@ export interface IUserTopArtistsProps {
   user: User;
 }
 
-// const AUTH_TOKEN =
-//   "BQC-Z-uPC6Kz97-S9103cFFbcXdlrYXEaGkW7HBC9qoaAAYycIo8E1bNCuYTVBq4f17rJr-DPLKj2xEOG99mIShPBYmtLyvr33McHulJHtuzlkGaqs";
-
-// const fetcher = async (id: string) => {
-//   const response = await fetch(`${MAIN_ENDPOINT}?id=${id}`, {
-//     headers: {
-//       Authorization: AUTH_TOKEN,
-//     },
-//   });
-
-//   if (!response.ok) {
-//     throw new Error("Something went wrong");
-//   }
-
-//   return response.json();
-// };
+const AUTH_TOKEN = process.env.NEXT_PUBLIC_AUTH_TOKEN;
 
 const fetch = (id: string, accessToken: string) =>
   useFetcher({
     endpoint: `${MAIN_ENDPOINT}?id=${id}`,
     method: "POST",
     headers: {
-      Authorization: "",
+      Authorization: AUTH_TOKEN,
       accessToken,
     },
   });

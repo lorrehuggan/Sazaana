@@ -2,7 +2,7 @@ import { ArtistResponse } from "@/lib/types/PreSearch";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { TEST_ENDPOINT } from "@/lib/api";
+import {  MAIN_ENDPOINT, TEST_ENDPOINT } from "@/lib/api";
 import { MainResponse } from "@/lib/types/mainSearch";
 import { useAppDispatch, useAppSelector } from "../../lib/Redux/hooks";
 import { setDataState } from "@/lib/Redux/reducers/dataReducer";
@@ -17,13 +17,13 @@ export interface IArtistSearchProps {
   setValue: (value: string) => void;
 }
 
-const AUTH_TOKEN =
-  "BQC-Z-uPC6Kz97-S9103cFFbcXdlrYXEaGkW7HBC9qoaAAYycIo8E1bNCuYTVBq4f17rJr-DPLKj2xEOG99mIShPBYmtLyvr33McHulJHtuzlkGaqs";
+const AUTH_TOKEN = process.env.NEXT_PUBLIC_AUTH_TOKEN
 
 const fetcher = async (id: string) => {
-  const response = await fetch(`${TEST_ENDPOINT}?id=${id}`, {
+  const response = await fetch(`${MAIN_ENDPOINT}?id=${id}`, {
+    method: "POST",
     headers: {
-      Authorization: AUTH_TOKEN,
+      Authorization: AUTH_TOKEN!,
     },
   });
 
@@ -47,7 +47,7 @@ export default function ArtistSearchResults({
     ["mainSearch", id],
     () => fetcher(id),
     {
-      enabled: appState === "searching" && id.length > 0,
+      enabled: id.length > 0,
     }
   );
 

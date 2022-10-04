@@ -1,19 +1,19 @@
-const DEV = "http://localhost:5000/";
+const DEV = "http://localhost:3000/";
 const PROD = "https://sazaana-server-production.up.railway.app/";
 const Heroku = "https://sazaana.herokuapp.com/";
-const ENV = Heroku;
+const ENV = DEV;
 
 const BASE = `${ENV}api/`;
 //import.meta.env.VITE_AUTH_TOKEN
 
 //export const MAIN_ENDPOINT = BASE + "main";
 export const MAIN_ENDPOINT = BASE + "main";
-export const PRE_ENDPOINT = BASE + "main/pre-search";
+export const PRE_ENDPOINT = BASE + "search";
 export const ARTIST_TEST_ENDPOINT = BASE + "main/artist";
 
 export const USER_ENDPOINT = BASE + "stor/get-user";
 export const TEST_ENDPOINT = BASE + "main/test";
-export const LOGIN_ENDPOINT = BASE + "main/login";
+export const LOGIN_ENDPOINT = BASE + "login";
 export const REFRESH_ENDPOINT = BASE + "main/refresh";
 
 const DEV_URL = "http://localhost:3000/";

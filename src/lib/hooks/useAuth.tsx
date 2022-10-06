@@ -47,7 +47,7 @@ export default function UseAuth() {
     ["login", code],
     () => fetcher(code),
     {
-      enabled: code.length > 0,
+      enabled: code?.length > 0,
       retry: false,
       refetchOnWindowFocus: false,
     }
@@ -57,7 +57,7 @@ export default function UseAuth() {
     ["refresh", refresh_token],
     () => refreshFetcher(refresh_token),
     {
-      enabled: refresh_token.length > 1,
+      enabled: refresh_token?.length > 1,
       retry: false,
       refetchOnWindowFocus: false,
     }
@@ -79,6 +79,7 @@ export default function UseAuth() {
     if (userData) {
       setAccessToken(userData.access_token);
       setExpiresIn(userData.expires_in);
+      console.log({ userData });
 
       dispatch(setUserState(userData));
 

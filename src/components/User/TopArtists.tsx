@@ -66,6 +66,10 @@ export default function UserTopArtists({ user }: IUserTopArtistsProps) {
     <div>loading...</div>;
   }
 
+  if (isError) {
+    <div>Error..</div>;
+  }
+
   return (
     <section className="canvas-width mt-2 cursor-pointer">
       <div className="rounded bg-base-300 p-1">

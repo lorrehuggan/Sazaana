@@ -1,7 +1,6 @@
+import { SearchInput } from "./SearchInput";
 import React, { useState } from "react";
-import { Switch } from "@headlessui/react";
 import { useAppDispatch, useAppSelector } from "../../lib/Redux/hooks";
-import { setSearchMode } from "../../lib/Redux/reducers/searchMode";
 import { ArtistResponse } from "@/lib/types/PreSearch";
 import { useQuery } from "@tanstack/react-query";
 import ArtistSearchResults from "./Dropdown";
@@ -29,6 +28,7 @@ const Search = (props: Props) => {
   const { resetApp } = UseAppReset();
   const [value, setValue] = useState("");
   const [enabled, setEnabled] = useState(false);
+  const [userQuery, setUserQuery] = useState("");
   const [state, setState] = useState("artist");
   const appState = useAppSelector((state: RootState) => state.appState.message);
 
@@ -37,56 +37,45 @@ const Search = (props: Props) => {
     isLoading,
     isError,
   } = useQuery<ArtistResponse>(
-    ["preSearch", value],
-    () => fetch(value, state),
+    ["preSearch", userQuery],
+    () => fetch(userQuery, state),
     {
       enabled: appState === "searching" && value.length > 0,
     }
   );
-
   const dispatch = useAppDispatch();
 
-  const handleSwitch = (e: any) => {
-    if (state === "artist") setState("track");
-    if (state === "track") setState("artist");
-    setEnabled(e);
-    dispatch(setSearchMode());
-  };
-
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length > 0 && e.target.value.length < 12) {
+  const handleSearch = () => {
+    if (artists) {
+      resetApp();
+    }
+    if (value.length > 0 && value.length < 12) {
       dispatch(setAppState("searching"));
     } else {
       dispatch(setAppState(""));
     }
+    setUserQuery(value);
+  };
+
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
   };
 
   return (
     <>
-      <section className="border-b-neutral-300 canvas-width mx-auto border-b-2 pt-4 ">
+      <section className="border-b-neutral-300 canvas-width mx-auto  border-b-2 pt-4">
         <h1 className=" mb-4 text-5xl font-extrabold tracking-tighter xl:text-8xl">
           {`Discover new music with the help of your favorite artists`}
         </h1>
-        <div className="flex items-center">
-          <input
-            data-testid="search-input"
-            name="Artist"
-            value={value}
-            onChange={handleInput}
-            className=" w-full bg-transparent py-1 focus:outline-none"
-            type="text"
-            placeholder={`Search By ${enabled ? "Track" : "Artist"}`}
-          />
-          <span
-            onClick={resetApp}
-            className="color-transition cursor-pointer text-xs lg:text-base lg:hover:text-primary"
-          >
-            Reset
-          </span>
-        </div>
+        <SearchInput
+          value={value}
+          handleInput={handleInput}
+          handleSearch={handleSearch}
+          resetApp={resetApp}
+        />
       </section>
-      {/* these need be taken care of in the near future */}
+
+      {/* TODO these need be taken care of in the near future */}
       {isLoading && appState === "searching" && <Loading />}
       {artists && appState === "searching" ? (
         <ArtistSearchResults artists={artists} setValue={setValue} />

@@ -30,7 +30,6 @@ export default function Home() {
         refresh_token,
       })
     );
-    console.log({ access_token });
   });
 
   return (

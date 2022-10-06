@@ -2,7 +2,7 @@ import { ArtistResponse } from "@/lib/types/PreSearch";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import {  MAIN_ENDPOINT, TEST_ENDPOINT } from "@/lib/api";
+import { MAIN_ENDPOINT, TEST_ENDPOINT } from "@/lib/api";
 import { MainResponse } from "@/lib/types/mainSearch";
 import { useAppDispatch, useAppSelector } from "../../lib/Redux/hooks";
 import { setDataState } from "@/lib/Redux/reducers/dataReducer";
@@ -17,7 +17,7 @@ export interface IArtistSearchProps {
   setValue: (value: string) => void;
 }
 
-const AUTH_TOKEN = process.env.NEXT_PUBLIC_AUTH_TOKEN
+const AUTH_TOKEN = process.env.NEXT_PUBLIC_AUTH_TOKEN;
 
 const fetcher = async (id: string) => {
   const response = await fetch(`${MAIN_ENDPOINT}?id=${id}`, {
@@ -62,13 +62,14 @@ export default function ArtistSearchResults({
   }, [data]);
 
   const handleSearch = (id: string, name: string) => {
+    setValue("");
     setId(id);
     setSearchState({ id, name });
   };
 
   return (
     <div className="dropdown-open">
-      <div className="canvas-width dropdown-content menu  relative  mx-auto max-h-56 space-y-3 overflow-y-scroll  rounded-b-xl bg-base-100 py-2 text-neutral shadow-lg">
+      <div className="canvas-width dropdown-content menu  relative  mx-auto flex max-h-56 flex-col  space-y-3 overflow-y-scroll rounded-b-xl bg-base-100 py-2 text-neutral shadow-lg">
         {artists?.data.map((artist, i) => {
           return (
             <div

@@ -31,7 +31,7 @@ export function SearchInput({
       />
       <div className="flex gap-2">
         <button
-          className="color-transition rounded-lg bg-primary p-1 font-bold text-primary-content hover:bg-primary-content hover:text-primary"
+          className="color-transition rounded-lg bg-base-300 p-1 font-bold text-primary-content hover:bg-primary-content hover:text-primary"
           onClick={handleSearch}
         >
           <svg

@@ -34,6 +34,7 @@ const Search = (props: Props) => {
   const [state, setState] = useState("artist");
   const appState = useAppSelector((state: RootState) => state.appState.message);
   const enterPressed = useKeyPress("Enter");
+  const deletePressed = useKeyPress("Backspace");
   const xPressed = useKeyPress("x");
   const loading = useAppSelector(
     (state: RootState) => state.searchMode.loading
@@ -47,9 +48,20 @@ const Search = (props: Props) => {
     () => fetch(userQuery, state),
     {
       enabled: appState === "searching" && value.length > 1,
+      refetchOnWindowFocus: false,
     }
   );
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (deletePressed) {
+      dispatch(setLoadingState(false));
+    }
+
+    if (value.length < 1) {
+      dispatch(setLoadingState(false));
+    }
+  }, [value]);
 
   // set global loading state on search
   useEffect(() => {

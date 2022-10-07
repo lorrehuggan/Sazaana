@@ -11,6 +11,7 @@ import { RootState } from "@/lib/Redux/store";
 import { setAppState } from "@/lib/Redux/reducers/appStateReducer";
 import { randomizeArray } from "@/lib/utils";
 import { setTracklistState } from "@/lib/Redux/reducers/tracklistReducer";
+import { setLoadingState } from "@/lib/Redux/reducers/searchMode";
 
 export interface IArtistSearchProps {
   artists: ArtistResponse | undefined;
@@ -54,6 +55,15 @@ export default function ArtistSearchResults({
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    if (appState === "searching") {
+      dispatch(setLoadingState(isLoading));
+    } else if (appState === "") {
+      dispatch(setLoadingState(false));
+    }
+    return () => {};
+  }, [isLoading]);
+
+  useEffect(() => {
     if (data) {
       dispatch(setDataState(randomizeArray([...data.data])));
       dispatch(setTracklistState(randomizeArray([...data.data])));
@@ -65,6 +75,8 @@ export default function ArtistSearchResults({
     setValue("");
     setId(id);
     setSearchState({ id, name });
+    dispatch(setAppState("searching"));
+    dispatch(setLoadingState(isLoading));
   };
 
   return (

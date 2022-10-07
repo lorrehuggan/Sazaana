@@ -9,6 +9,7 @@ import UseAppReset from "@/lib/hooks/useResetApp";
 import { useAppDispatch, useAppSelector } from "@/lib/Redux/hooks";
 import { setUserState } from "@/lib/Redux/reducers/userReducer";
 import { RootState } from "@/lib/Redux/store";
+import { setLoadingState } from "@/lib/Redux/reducers/searchMode";
 
 const Header = () => {
   const { resetApp } = UseAppReset();
@@ -18,6 +19,7 @@ const Header = () => {
   const handleLogout = () => {
     resetApp();
     dispatch(setUserState(null));
+    dispatch(setLoadingState(false));
   };
 
   return (
@@ -42,7 +44,9 @@ const Header = () => {
           </>
         ) : (
           <a className="flex items-center space-x-2" href={AUTH_URL}>
-            <span className="text-sm font-bold">Connect</span>
+            <span onClick={handleLogout} className="text-sm font-bold">
+              Connect
+            </span>
             <SiSpotify className="text-2xl text-[#17D860]" />
           </a>
         )}

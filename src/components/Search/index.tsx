@@ -6,11 +6,12 @@ import { useQuery } from "@tanstack/react-query";
 import ArtistSearchResults from "./Dropdown";
 import { setAppState } from "@/lib/Redux/reducers/appStateReducer";
 import { RootState } from "@/lib/Redux/store";
-import Loading from "./Loading";
 import UseAppReset from "@/lib/hooks/useResetApp";
 import { useFetcher } from "@/lib/utils";
 import { PRE_ENDPOINT } from "@/lib/api";
 import useKeyPress from "@/lib/hooks/useKeyPress";
+import { setLoadingState } from "@/lib/Redux/reducers/searchMode";
+import { setDataState } from "@/lib/Redux/reducers/dataReducer";
 
 type Props = {};
 
@@ -34,7 +35,9 @@ const Search = (props: Props) => {
   const appState = useAppSelector((state: RootState) => state.appState.message);
   const enterPressed = useKeyPress("Enter");
   const xPressed = useKeyPress("x");
-
+  const loading = useAppSelector(
+    (state: RootState) => state.searchMode.loading
+  );
   const {
     data: artists,
     isLoading,
@@ -43,26 +46,35 @@ const Search = (props: Props) => {
     ["preSearch", userQuery],
     () => fetch(userQuery, state),
     {
-      enabled: appState === "searching" && value.length > 0,
+      enabled: appState === "searching" && value.length > 1,
     }
   );
   const dispatch = useAppDispatch();
+
+  // set global loading state on search
+  useEffect(() => {
+    if (appState === "searching") {
+      dispatch(setLoadingState(isLoading));
+    } else if (appState === "") {
+      dispatch(setLoadingState(false));
+    }
+    return () => {};
+  }, [isLoading]);
 
   //search with enter button
   useEffect(() => {
     if (enterPressed) {
       handleSearch();
-
       return;
     }
   }, [enterPressed, xPressed]);
 
   const handleSearch = () => {
-    if (artists) {
-      resetApp();
-    }
-    if (value.length > 0 && value.length < 12) {
+    resetApp();
+
+    if (value.length > 0 && value.length < 15) {
       dispatch(setAppState("searching"));
+      dispatch(setLoadingState(isLoading));
     } else {
       dispatch(setAppState(""));
     }
@@ -86,9 +98,6 @@ const Search = (props: Props) => {
           resetApp={resetApp}
         />
       </section>
-
-      {/* TODO these need be taken care of in the near future */}
-      {isLoading && appState === "searching" && <Loading />}
       {artists && appState === "searching" ? (
         <ArtistSearchResults artists={artists} setValue={setValue} />
       ) : null}

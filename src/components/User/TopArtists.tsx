@@ -1,10 +1,8 @@
-import { TEST_ENDPOINT } from "@/lib/api";
 import { useAppDispatch, useAppSelector } from "@/lib/Redux/hooks";
 import { setAppState } from "@/lib/Redux/reducers/appStateReducer";
 import { setDataState } from "@/lib/Redux/reducers/dataReducer";
 import { RootState } from "@/lib/Redux/store";
 import { MainResponse } from "@/lib/types/mainSearch";
-import { ArtistResponse } from "@/lib/types/PreSearch";
 import { User } from "@/lib/types/User";
 import { randomizeArray, useFetcher } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
@@ -13,6 +11,7 @@ import * as React from "react";
 import { MAIN_ENDPOINT } from "@/lib/api";
 import UseAppReset from "@/lib/hooks/useResetApp";
 import { setTracklistState } from "@/lib/Redux/reducers/tracklistReducer";
+import { setLoadingState } from "@/lib/Redux/reducers/searchMode";
 
 export interface IUserTopArtistsProps {
   user: User;
@@ -32,6 +31,7 @@ const fetch = (id: string, accessToken: string) =>
 
 export default function UserTopArtists({ user }: IUserTopArtistsProps) {
   const { resetApp } = UseAppReset();
+  const trackData = useAppSelector((state: RootState) => state.dataState.data)!;
   const accessToken = useAppSelector(
     (state: RootState) => state.authState.access_token
   );
@@ -47,11 +47,25 @@ export default function UserTopArtists({ user }: IUserTopArtistsProps) {
 
   const dispatch = useAppDispatch();
 
-  const handleSearch = (id: string) => {
-    console.log({ test: accessToken });
+  React.useEffect(() => {
+    dispatch(setLoadingState(true));
+    if (user.userTopArtists) {
+      dispatch(setLoadingState(false));
+    }
+  }, [user.userTopArtists]);
 
+  React.useEffect(() => {
+    if (trackData) {
+      dispatch(setAppState(""));
+      dispatch(setLoadingState(false));
+    }
+  }, [trackData]);
+
+  const handleSearch = (id: string) => {
     resetApp();
     setId(id);
+    dispatch(setAppState("searching"));
+    dispatch(setLoadingState(true));
   };
 
   React.useEffect(() => {
@@ -62,12 +76,8 @@ export default function UserTopArtists({ user }: IUserTopArtistsProps) {
     }
   }, [data]);
 
-  if (isLoading) {
-    <div>loading...</div>;
-  }
-
-  if (isError) {
-    <div>Error..</div>;
+  if (isLoading && !user.userTopArtists.body) {
+    return <p className="text-xl">Loading...</p>;
   }
 
   return (
@@ -97,7 +107,9 @@ export default function UserTopArtists({ user }: IUserTopArtistsProps) {
                 className="absolute bottom-2 left-2 z-30  w-44 
               "
               >
-                <span className="font-bold text-base-100">{item.name}</span>
+                <span className="font truncate text-xs text-base-100 lg:text-base">
+                  {item.name}
+                </span>
               </div>
 
               <Image

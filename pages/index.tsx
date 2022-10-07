@@ -14,11 +14,15 @@ import Head from "next/head";
 import CreatePlaylist from "@/components/CreatePlaylist";
 import UseAuth from "@/lib/hooks/useAuth";
 import { setAuthState } from "@/lib/Redux/reducers/authReducer";
+import Loading from "@/components/Search/Loading";
 
 export default function Home() {
   const { access_token, refresh_token } = UseAuth();
   const trackData = useAppSelector((state: RootState) => state.dataState.data);
   const userData = useAppSelector((state: RootState) => state.userState.user);
+  const loading = useAppSelector(
+    (state: RootState) => state.searchMode.loading
+  );
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -40,6 +44,7 @@ export default function Home() {
       <Header />
       <Main>
         <Search />
+        {loading && <Loading />}
         {userData && <UserTopArtists user={userData} />}
         {trackData && (
           <>

@@ -78,7 +78,7 @@ export default function UserTopArtists({ user }: IUserTopArtistsProps) {
         </p>
       </div>
       <div className="mt-2 flex snap-x snap-mandatory flex-nowrap space-x-2 overflow-x-scroll ">
-        {user.userTopArtists.body.items.slice(0, 5).map((item, index) => {
+        {user?.userTopArtists?.body.items.slice(0, 5).map((item, index) => {
           return (
             <div
               key={item.id + index}

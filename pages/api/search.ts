@@ -1,5 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import SpotifyWebApi from "spotify-web-api-node";
+import Cors from "cors";
+
+const cors = Cors({
+  methods: ["POST", "GET", "HEAD"],
+  origin: "https://sazaana.com/",
+});
 
 export default async function handler(
   req: NextApiRequest,

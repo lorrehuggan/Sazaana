@@ -1,5 +1,5 @@
 import { SearchInput } from "./SearchInput";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../lib/Redux/hooks";
 import { ArtistResponse } from "@/lib/types/PreSearch";
 import { useQuery } from "@tanstack/react-query";
@@ -10,6 +10,7 @@ import Loading from "./Loading";
 import UseAppReset from "@/lib/hooks/useResetApp";
 import { useFetcher } from "@/lib/utils";
 import { PRE_ENDPOINT } from "@/lib/api";
+import useKeyPress from "@/lib/hooks/useKeyPress";
 
 type Props = {};
 
@@ -31,6 +32,8 @@ const Search = (props: Props) => {
   const [userQuery, setUserQuery] = useState("");
   const [state, setState] = useState("artist");
   const appState = useAppSelector((state: RootState) => state.appState.message);
+  const enterPressed = useKeyPress("Enter");
+  const xPressed = useKeyPress("x");
 
   const {
     data: artists,
@@ -44,6 +47,15 @@ const Search = (props: Props) => {
     }
   );
   const dispatch = useAppDispatch();
+
+  //search with enter button
+  useEffect(() => {
+    if (enterPressed) {
+      handleSearch();
+
+      return;
+    }
+  }, [enterPressed, xPressed]);
 
   const handleSearch = () => {
     if (artists) {

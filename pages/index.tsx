@@ -45,7 +45,7 @@ export default function Home() {
       <Main>
         <Search />
         {loading && <Loading />}
-        {userData && <UserTopArtists user={userData} />}
+        <UserTopArtists user={userData} />
         {trackData && (
           <>
             <Query />

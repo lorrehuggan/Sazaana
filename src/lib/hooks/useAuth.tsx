@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { LOGIN_ENDPOINT, REFRESH_ENDPOINT } from "../api";
 import { useAppDispatch } from "../Redux/hooks";
+import { setLoadingState } from "../Redux/reducers/searchMode";
 import { setUserState } from "../Redux/reducers/userReducer";
 import { User } from "../types/User";
 
@@ -41,6 +42,7 @@ export default function UseAuth() {
   const [access_token, setAccessToken] = useState<string | null>(null);
   const [refresh_token, setRefreshToken] = useState<string>("");
   const [expires_in, setExpiresIn] = useState<number>(0);
+  const [signedIn, setSignedIn] = useState(false);
   const dispatch = useAppDispatch();
 
   const { data: userData, isError } = useQuery<User>(
@@ -67,6 +69,8 @@ export default function UseAuth() {
 
   useEffect(() => {
     if (router.query.code as string) {
+      setSignedIn(true);
+      dispatch(setLoadingState(true));
       setCode(router.query.code as string);
       router.push("/");
     }
@@ -79,7 +83,6 @@ export default function UseAuth() {
     if (userData) {
       setAccessToken(userData.access_token);
       setExpiresIn(userData.expires_in);
-      console.log({ userData });
 
       dispatch(setUserState(userData));
 
@@ -95,6 +98,7 @@ export default function UseAuth() {
     if (!expires_in || !access_token) return;
     setAccessToken(refresh.accessToken);
     setExpiresIn(refresh.expiresIn);
+    return () => {};
   }, [refresh]);
 
   return { access_token, refresh_token, expires_in, userData };

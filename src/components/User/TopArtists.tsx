@@ -76,7 +76,7 @@ export default function UserTopArtists({ user }: IUserTopArtistsProps) {
     }
   }, [data]);
 
-  if (isLoading && !user.userTopArtists.body) {
+  if (isLoading && !user?.userTopArtists?.body) {
     return <p className="text-xl">Loading...</p>;
   }
 

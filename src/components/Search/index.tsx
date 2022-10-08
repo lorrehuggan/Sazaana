@@ -17,7 +17,7 @@ type Props = {};
 
 const AUTH_TOKEN = process.env.AUTH_TOKEN as string;
 
-const fetch = (id: string, state: string) =>
+const fetch = (id: string) =>
   useFetcher({
     endpoint: `${PRE_ENDPOINT}?artist=${id}`,
     method: "GET",
@@ -45,7 +45,7 @@ const Search = (props: Props) => {
     isError,
   } = useQuery<ArtistResponse>(
     ["preSearch", userQuery],
-    () => fetch(userQuery, state),
+    () => fetch(userQuery),
     {
       enabled: appState === "searching" && value.length > 1,
       refetchOnWindowFocus: false,
@@ -82,15 +82,17 @@ const Search = (props: Props) => {
   }, [enterPressed, xPressed]);
 
   const handleSearch = () => {
-    resetApp();
+    if (artists) {
+      resetApp();
+    }
 
     if (value.length > 0 && value.length < 15) {
-      dispatch(setAppState("searching"));
       dispatch(setLoadingState(isLoading));
+      dispatch(setAppState("searching"));
+      setUserQuery(value);
     } else {
       dispatch(setAppState(""));
     }
-    setUserQuery(value);
   };
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {

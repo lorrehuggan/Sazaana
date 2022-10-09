@@ -23,7 +23,7 @@ export default async function handler(
     const user = await spotifyApi.getMe();
     const userTopArtists = await spotifyApi.getMyTopArtists({ limit: 10 });
     // This will allow OPTIONS request
-    if (method === "OPTIONS") {
+    if (method === "POST") {
       return res.json({
         access_token,
         refresh_token,

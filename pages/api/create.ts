@@ -25,7 +25,7 @@ export default async function handler(
     const playlistId = createPlaylist.body.id;
     const addTracks = await spotifyApi.addTracksToPlaylist(playlistId, tracks);
     // This will allow OPTIONS request
-    if (method === "OPTIONS") {
+    if (method === "POST") {
       res.status(200).send({
         error: "",
         data: addTracks.body,

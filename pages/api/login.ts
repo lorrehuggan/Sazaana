@@ -6,6 +6,7 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const { code } = req.body;
+  const { method } = req;
 
   const spotifyApi = new SpotifyWebApi({
     clientId: process.env.CLIENT_ID,
@@ -21,7 +22,16 @@ export default async function handler(
     spotifyApi.setAccessToken(access_token);
     const user = await spotifyApi.getMe();
     const userTopArtists = await spotifyApi.getMyTopArtists({ limit: 10 });
-    res.json({ access_token, refresh_token, expires_in, user, userTopArtists });
+    // This will allow OPTIONS request
+    if (method === "OPTIONS") {
+      return res.json({
+        access_token,
+        refresh_token,
+        expires_in,
+        user,
+        userTopArtists,
+      });
+    }
   } catch (error: any) {
     res.json({ message: error.message });
   }

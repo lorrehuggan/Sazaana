@@ -7,6 +7,8 @@ export default async function handler(
 ) {
   const { access, playlistName, tracks, publicPlaylist } = req.body;
 
+  const { method } = req;
+
   const spotifyApi = new SpotifyWebApi({
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
@@ -22,11 +24,14 @@ export default async function handler(
     });
     const playlistId = createPlaylist.body.id;
     const addTracks = await spotifyApi.addTracksToPlaylist(playlistId, tracks);
-    res.status(200).send({
-      error: "",
-      data: addTracks.body,
-      message: `${playlistName} Added to Spotify library`,
-    });
+    // This will allow OPTIONS request
+    if (method === "OPTIONS") {
+      res.status(200).send({
+        error: "",
+        data: addTracks.body,
+        message: `${playlistName} Added to Spotify library`,
+      });
+    }
   } catch (error: any) {
     res.json({ message: error.message });
   }

@@ -18,7 +18,7 @@ export const LOGIN_ENDPOINT = BASE + "login";
 export const REFRESH_ENDPOINT = BASE + "main/refresh";
 
 const DEV_URL = "http://localhost:3000/";
-const PROD_URL = "https://www.sazaana.com";
+const PROD_URL = "https://www.sazaana.com/";
 
 const REDIRECT_URL = PROD_URL;
 

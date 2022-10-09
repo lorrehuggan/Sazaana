@@ -11,7 +11,7 @@ export default async function handler(
   const spotifyApi = new SpotifyWebApi({
     clientId: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
-    redirectUri: "http://localhost:3000/",
+    redirectUri: "https://www.sazaana.com/",
   });
 
   try {

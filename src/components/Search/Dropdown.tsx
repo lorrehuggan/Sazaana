@@ -2,7 +2,7 @@ import { ArtistResponse } from "@/lib/types/PreSearch";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { MAIN_ENDPOINT, TEST_ENDPOINT } from "@/lib/api";
+import { MAIN_ENDPOINT } from "@/lib/api";
 import { MainResponse } from "@/lib/types/mainSearch";
 import { useAppDispatch, useAppSelector } from "../../lib/Redux/hooks";
 import { setDataState } from "@/lib/Redux/reducers/dataReducer";

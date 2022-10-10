@@ -25,7 +25,7 @@ export function SearchInput({
         name="Artist"
         value={value}
         onChange={handleInput}
-        className="w-full bg-transparent py-1 text-2xl font-bold focus:outline-none"
+        className="w-full bg-transparent py-1 font-bold focus:outline-none md:text-2xl"
         type="text"
         placeholder={`Search Your Favorite Artist`}
       />

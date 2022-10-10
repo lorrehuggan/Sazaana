@@ -1,7 +1,7 @@
 const DEV = "http://localhost:3000/";
 // const PROD = "https://sazaana-server-production.up.railway.app/";
 const PROD = "https://www.sazaana.com/";
-const ENV = PROD;
+const ENV = DEV;
 
 const BASE = `${ENV}api/`;
 //import.meta.env.VITE_AUTH_TOKEN

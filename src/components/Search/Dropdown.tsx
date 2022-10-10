@@ -55,15 +55,6 @@ export default function ArtistSearchResults({
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (appState === "searching") {
-      dispatch(setLoadingState(isLoading));
-    } else if (appState === "") {
-      dispatch(setLoadingState(false));
-    }
-    return () => {};
-  }, [isLoading]);
-
-  useEffect(() => {
     if (data) {
       dispatch(setDataState(randomizeArray([...data.data])));
       dispatch(setTracklistState(randomizeArray([...data.data])));
@@ -72,22 +63,23 @@ export default function ArtistSearchResults({
   }, [data]);
 
   const handleSearch = (id: string, name: string) => {
+    dispatch(setLoadingState(true));
+
     setValue("");
     setId(id);
     setSearchState({ id, name });
     dispatch(setAppState("searching"));
-    dispatch(setLoadingState(isLoading));
   };
 
   return (
-    <div className="dropdown-open">
-      <div className="canvas-width dropdown-content menu  relative  mx-auto flex max-h-56 flex-col  space-y-3 overflow-y-scroll rounded-b-xl bg-base-100 py-2 text-neutral shadow-lg">
+    <div className="dropdown-open ">
+      <div className="flex h-48 flex-col overflow-y-scroll bg-base-100 px-4 shadow-lg">
         {artists?.data.map((artist, i) => {
           return (
             <div
               onClick={() => handleSearch(artist.id, artist.name)}
               key={i}
-              className="group flex cursor-pointer items-center space-x-2  p-2 transition-all duration-200 ease-in-out hover:bg-base-300"
+              className="group flex cursor-pointer  items-center space-x-2  p-2 transition-all duration-200 ease-in-out hover:bg-base-300"
             >
               <div className="relative h-12 w-12 overflow-hidden rounded-xl">
                 <Image

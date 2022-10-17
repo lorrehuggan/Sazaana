@@ -7,20 +7,14 @@ import AlbumImage from "./Image";
 import Title from "./Title";
 import Preview from "./Preview";
 import { Main } from "@/lib/types/mainSearch";
-import Sort from "./Sort";
 import { useAutoAnimate } from "@formkit/auto-animate/react";
-import { setTrackSettingsState } from "@/lib/Redux/reducers/trackSettingsReducer";
 import { setTracklistState } from "@/lib/Redux/reducers/tracklistReducer";
 
 export interface ITracklistProps {}
 
 export default function Tracklist(props: ITracklistProps) {
-  const [filterBy, setFilterBy] = React.useState<string | null>(null);
   const trackData = useAppSelector((state: RootState) => state.dataState.data)!;
   const [shuffle, setShuffle] = React.useState<Main[]>(trackData);
-  const [sortByDance, setSortByDance] = React.useState(true);
-  const [sortByEnergy, setSortByEnergy] = React.useState(true);
-  const [sortByTempo, setSortByTempo] = React.useState(true);
   const tracklistState = useAppSelector(
     (state: RootState) => state.tracklistState.tracklist
   )!;
@@ -93,18 +87,6 @@ export default function Tracklist(props: ITracklistProps) {
   return (
     <section className="mx-auto my-6 lg:my-0 lg:w-[calc(968px/3*2)] lg:flex-1">
       <Heading />
-      {/* <Sort
-        setFilterBy={setFilterBy}
-        sortByDance={sortByDance}
-        filterBy={filterBy}
-        setSortByDance={setSortByDance}
-        setSortByEnergy={setSortByEnergy}
-        setSortByTempo={setSortByTempo}
-        setShuffle={setShuffle}
-        shuffle={shuffle}
-        sortByEnergy={sortByEnergy}
-        sortByTempo={sortByTempo}
-      /> */}
 
       <div ref={parent}>
         {tracklistState.length === 0 && (

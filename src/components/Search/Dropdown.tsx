@@ -73,7 +73,7 @@ export default function ArtistSearchResults({
 
   return (
     <div className="dropdown-open ">
-      <div className="flex h-48 flex-col overflow-y-scroll bg-base-100 px-4 shadow-lg">
+      <div className="canvas-width flex h-48 flex-col overflow-y-scroll bg-base-100 px-4 shadow-lg">
         {artists?.data.map((artist, i) => {
           return (
             <div
